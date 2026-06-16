@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="AGB — KiezPower" description="Allgemeine Nutzungsbedingungen für die KiezPower-Website und Warteliste.">
+  <Nav />
+  <main class="legal-page">
+    <div class="container">
+      <h1>Allgemeine Nutzungsbedingungen</h1>
+
+      <p class="intro">
+        Diese Nutzungsbedingungen gelten für die Nutzung der Website <strong>kiez-power.de</strong> und die Eintragung in die KiezPower-Warteliste. KiezPower befindet sich derzeit in der Entwicklungsphase; ein kommerzielles Angebot besteht noch nicht.
+      </p>
+
+      <section>
+        <h2>1. Anbieter</h2>
+        <p>
+          Christian Roessler<br />
+          Dierhäger Straße 2<br />
+          18347 Dierhagen<br />
+          E-Mail: <a href="mailto:info@kiez-power.de">info@kiez-power.de</a>
+        </p>
+      </section>
+
+      <section>
+        <h2>2. Geltungsbereich</h2>
+        <p>
+          Diese Nutzungsbedingungen regeln den Zugang und die Nutzung der Website kiez-power.de sowie die Eintragung in die Warteliste für das zukünftige KiezPower-Angebot. Durch die Nutzung der Website erklären Sie sich mit diesen Bedingungen einverstanden.
+        </p>
+      </section>
+
+      <section>
+        <h2>3. Warteliste</h2>
+        <p>
+          Die Eintragung in die Warteliste begründet keinen Anspruch auf einen Vertragsabschluss oder die Nutzung zukünftiger Dienste von KiezPower. Sie erhalten nach Eintragung gelegentliche Informationen zum Entwicklungsstand per E-Mail.
+        </p>
+        <p>
+          Sie können sich jederzeit und kostenlos von der Warteliste abmelden, indem Sie uns unter <a href="mailto:info@kiez-power.de">info@kiez-power.de</a> kontaktieren oder den Abmelde-Link in unseren E-Mails verwenden.
+        </p>
+      </section>
+
+      <section>
+        <h2>4. Verfügbarkeit der Website</h2>
+        <p>
+          Wir bemühen uns um eine zuverlässige Erreichbarkeit der Website, können jedoch keine ununterbrochene Verfügbarkeit garantieren. Wartungsarbeiten, technische Störungen oder höhere Gewalt können zu vorübergehenden Unterbrechungen führen.
+        </p>
+      </section>
+
+      <section>
+        <h2>5. Nutzerpflichten</h2>
+        <p>Sie verpflichten sich, die Website nicht für folgende Zwecke zu nutzen:</p>
+        <ul>
+          <li>Verbreitung rechtswidriger, beleidigender oder irreführender Inhalte</li>
+          <li>Automatisierte Zugriffe (Scraping, Bots) ohne ausdrückliche Genehmigung</li>
+          <li>Handlungen, die den Betrieb der Website beeinträchtigen</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>6. Geistiges Eigentum</h2>
+        <p>
+          Alle Inhalte dieser Website — Texte, Grafiken, Logos und Code — sind urheberrechtlich geschützt. Eine Nutzung über den persönlichen, nicht-kommerziellen Gebrauch hinaus ist ohne schriftliche Genehmigung untersagt.
+        </p>
+      </section>
+
+      <section>
+        <h2>7. Haftungsausschluss</h2>
+        <p>
+          Die auf dieser Website bereitgestellten Informationen dienen ausschließlich zu Informationszwecken. Wir übernehmen keine Haftung für die Richtigkeit, Vollständigkeit oder Aktualität der Inhalte. Eine Haftung für Schäden, die durch die Nutzung der Website entstehen, ist — soweit gesetzlich zulässig — ausgeschlossen.
+        </p>
+      </section>
+
+      <section>
+        <h2>8. Änderungen dieser Bedingungen</h2>
+        <p>
+          Wir behalten uns vor, diese Nutzungsbedingungen jederzeit zu ändern. Die jeweils aktuelle Fassung ist auf dieser Seite abrufbar. Stand: Juni 2026.
+        </p>
+      </section>
+
+      <section>
+        <h2>9. Anwendbares Recht</h2>
+        <p>
+          Es gilt das Recht der Bundesrepublik Deutschland. Gerichtsstand ist, soweit gesetzlich zulässig, der Wohnort des Anbieters.
+        </p>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding: 8rem 0 5rem;
+    min-height: 70vh;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+  }
+
+  .intro {
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 3rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  section {
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2.5rem;
+  }
+
+  section:last-child {
+    border-bottom: none;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 0.75rem;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  ul {
+    color: var(--muted);
+    line-height: 1.75;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  li {
+    margin-bottom: 0.35rem;
+  }
+
+  a {
+    color: var(--green);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+</style>
