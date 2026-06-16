@@ -3,6 +3,6 @@ import { defineConfig } from 'astro/config';
 
 export default defineConfig({
   output: "static",
-  site: "https://kiezpower.github.io",
+  site: "https://kiez-power.de",
   base: "/",
 });
