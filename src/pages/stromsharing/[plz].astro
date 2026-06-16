@@ -1,0 +1,218 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import operators from '../../data/plz_to_operator.json';
+
+export function getStaticPaths() {
+  return Object.keys(operators).map((plz) => ({ params: { plz } }));
+}
+
+const { plz } = Astro.params;
+const op = operators[plz as keyof typeof operators];
+
+const title       = `Solarstrom verkaufen in ${op.city} (${plz}) — KiezPower`;
+const description = `Du hast eine PV-Anlage in ${op.city}? Mit KiezPower verkaufst du deinen Überschussstrom direkt an Nachbarn in PLZ ${plz} — vollautomatisch über ${op.name}.`;
+---
+
+<BaseLayout title={title} description={description}>
+  <Nav />
+  <main class="plz-page">
+    <div class="container">
+
+      <div class="breadcrumb">
+        <a href="/">KiezPower</a>
+        <span>›</span>
+        <span>Stromsharing {plz}</span>
+      </div>
+
+      <span class="section-tag">{op.state} · PLZ {plz}</span>
+      <h1>Solarstrom verkaufen in {op.city}</h1>
+      <p class="lead">
+        Du erzeugst mehr Strom als du verbrauchst? KiezPower handelt deinen
+        Überschuss direkt an Nachbarn in {op.city} — zu 20 ct/kWh statt der
+        üblichen Einspeisevergütung.
+      </p>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-label">Netzbetreiber</div>
+          <div class="info-value">{op.name}</div>
+        </div>
+        <div class="info-card">
+          <div class="info-label">Region</div>
+          <div class="info-value">{op.city}, {op.state}</div>
+        </div>
+        <div class="info-card">
+          <div class="info-label">Postleitzahl</div>
+          <div class="info-value">{plz}</div>
+        </div>
+        <div class="info-card">
+          <div class="info-label">MaStR-Nummer</div>
+          <div class="info-value mono">{op.mastrNummer}</div>
+        </div>
+      </div>
+
+      <div class="benefits">
+        <h2>Warum KiezPower in {op.city}?</h2>
+        <ul>
+          <li>
+            <strong>Bis zu 2,5× mehr</strong> als die gesetzliche Einspeisevergütung
+          </li>
+          <li>
+            <strong>Vollautomatisch</strong> — keine manuelle Abrechnung, kein Aufwand
+          </li>
+          <li>
+            <strong>Lokal</strong> — dein Strom bleibt im Kiez, deine Nachbarn profitieren
+          </li>
+          <li>
+            <strong>Rechtssicher</strong> — eIDAS-konforme Verträge, betrieben nach § 42c EnWG
+          </li>
+        </ul>
+      </div>
+
+      <div class="cta-box">
+        <h2>KiezPower kommt nach {op.city}</h2>
+        <p>
+          Trag dich jetzt auf die Warteliste ein — wir starten dort zuerst,
+          wo die Nachfrage am größten ist.
+        </p>
+        <a href="/#warteliste" class="btn-primary">Platz sichern →</a>
+      </div>
+
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .plz-page {
+    padding: 8rem 0 5rem;
+    min-height: 70vh;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .breadcrumb a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .breadcrumb a:hover { color: var(--white); }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+    color: var(--white);
+  }
+
+  .lead {
+    color: var(--muted);
+    font-size: 1.1rem;
+    line-height: 1.75;
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .info-card {
+    background: var(--night-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+  }
+
+  .info-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .info-value {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .mono { font-family: monospace; font-size: 0.85rem; }
+
+  .benefits {
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .benefits h2 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    color: var(--white);
+  }
+
+  .benefits ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .benefits li {
+    color: var(--muted);
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .benefits li::before {
+    content: '⚡';
+    position: absolute;
+    left: 0;
+    font-size: 0.85rem;
+  }
+
+  .benefits strong { color: var(--white); font-weight: 600; }
+
+  .cta-box {
+    background: var(--night-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    text-align: center;
+  }
+
+  .cta-box h2 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--white);
+  }
+
+  .cta-box p {
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+</style>

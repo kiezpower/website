@@ -282,8 +282,8 @@
 <script>
   import { createClient } from '@supabase/supabase-js';
 
-  const SUPABASE_URL      = 'https://xctbktqwpzbnsynofqtu.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhjdGJrdHF3cHpibnN5bm9mcXR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1ODkyNDUsImV4cCI6MjA5NzE2NTI0NX0.ooz9NOtW94AdVgI_2iLSe-pBJJ8q5XWwtKQCheTvZdA';
+  const SUPABASE_URL      = import.meta.env.PUBLIC_SUPABASE_URL;
+  const SUPABASE_ANON_KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 
   const supabase   = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   const form       = document.getElementById('waitlist-form');
