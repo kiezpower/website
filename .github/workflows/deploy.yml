@@ -2,15 +2,13 @@ name: Deploy KiezPower to GitHub Pages
 
 on:
   push:
-    branches: [main]          # Deploy bei jedem Push auf main
-  workflow_dispatch:           # Manuell auslösbar im GitHub UI
+    branches: [main]      
+  workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
-
-# Verhindert parallele Deployments
 concurrency:
   group: pages
   cancel-in-progress: true
