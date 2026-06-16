@@ -1,0 +1,104 @@
+---
+const steps = [
+  {
+    step: 'SCHRITT 01',
+    icon: '🏠',
+    title: 'Community beitreten',
+    desc: 'Melde dich an und wähle deine lokale Kiez-Community. Produzent mit PV-Anlage oder Konsument — beides ist willkommen.',
+  },
+  {
+    step: 'SCHRITT 02',
+    icon: '🔌',
+    title: 'Smartmeter verbinden',
+    desc: 'Verbinde deinen Smartmeter über unsere Bridge. KiezPower liest automatisch Verbrauch und Erzeugung in Echtzeit aus.',
+  },
+  {
+    step: 'SCHRITT 03',
+    icon: '⚡',
+    title: 'Automatisches Matching',
+    desc: 'Alle 15 Minuten werden Angebot und Nachfrage in deiner Community gematcht. Du handelst, ohne etwas tun zu müssen.',
+  },
+  {
+    step: 'SCHRITT 04',
+    icon: '📄',
+    title: 'Vertrag & Zahlung',
+    desc: 'Jeder Handel wird mit einer rechtssicheren eIDAS-Signatur besiegelt. Zahlung und Abrechnung erfolgen automatisch über dein Wallet.',
+  },
+];
+---
+
+<section class="how" id="wie-es-funktioniert">
+  <div class="container">
+    <span class="section-tag reveal">So funktioniert's</span>
+    <h2 class="section-title reveal">Energie teilen war<br />noch nie so einfach</h2>
+    <p class="section-sub reveal">
+      Kein Papierkram, keine Wartezeiten. KiezPower übernimmt das Matching,
+      die Verträge und die Abrechnung — vollautomatisch.
+    </p>
+
+    <div class="how-grid">
+      {steps.map((s) => (
+        <div class="how-card reveal">
+          <div class="how-step">{s.step}</div>
+          <span class="how-icon" aria-hidden="true">{s.icon}</span>
+          <h3>{s.title}</h3>
+          <p>{s.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .how {
+    background: var(--night-mid);
+    padding: 6rem 2rem;
+  }
+
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    margin-top: 3.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .how-card {
+    background: var(--night-mid);
+    padding: 2.2rem;
+    transition: background 0.2s;
+  }
+
+  .how-card:hover { background: var(--night-light); }
+
+  .how-step {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--green);
+    opacity: 0.7;
+    margin-bottom: 1.2rem;
+  }
+
+  .how-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .how-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .how-card p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+</style>

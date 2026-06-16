@@ -1,0 +1,105 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?:       string;
+  description?: string;
+  ogImage?:     string;
+}
+
+const {
+  title       = 'KiezPower — Strom von Nachbar zu Nachbar',
+  description = 'KiezPower ermöglicht automatisierten Peer-to-Peer Stromhandel zwischen Nachbarn. Produzenten verkaufen Solarstrom direkt an Konsumenten in der Nachbarschaft — für 20 ct/kWh, vollautomatisch und DSGVO-konform.',
+  ogImage     = '/web-app-manifest-512x512.png',
+} = Astro.props;
+
+const siteUrl     = 'https://kiezpower.de'; // ← anpassen
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ── Canonical ── -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- ── Primary SEO ── -->
+    <title>{title}</title>
+    <meta name="description"  content={description} />
+    <meta name="keywords"     content="Peer-to-Peer Strom, Solarstrom kaufen, Energiegemeinschaft, lokaler Stromhandel, PV Anlage verkaufen, günstiger Strom Nachbarschaft, KiezPower" />
+    <meta name="author"       content="KiezPower" />
+    <meta name="robots"       content="index, follow" />
+    <meta name="theme-color"  content="#0A1628" />
+
+    <!-- ── Open Graph (Facebook, LinkedIn, WhatsApp) ── -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content={canonicalURL} />
+    <meta property="og:title"       content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image"       content={`${siteUrl}${ogImage}`} />
+    <meta property="og:image:width"  content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:locale"      content="de_DE" />
+    <meta property="og:site_name"   content="KiezPower" />
+
+    <!-- ── Twitter / X Card ── -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image"       content={`${siteUrl}${ogImage}`} />
+
+    <!-- ── Favicons ── -->
+    <link rel="icon"             href="/favicon.ico" sizes="any" />
+    <link rel="icon"             href="/favicon-96x96.png" type="image/png" sizes="96x96" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest"         href="/site.webmanifest" />
+
+    <!-- ── Structured Data (JSON-LD) ── -->
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "KiezPower",
+        "url": siteUrl,
+        "logo": `${siteUrl}/logo.png`,
+        "description": description,
+        "foundingLocation": {
+          "@type": "Place",
+          "addressCountry": "DE"
+        },
+        "sameAs": []
+      })}
+    </script>
+
+    <!-- ── Preconnect fonts ── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <slot />
+
+    <script>
+      const reveals  = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const all = Array.from(document.querySelectorAll('.reveal'));
+              const idx = all.indexOf(entry.target as HTMLElement);
+              setTimeout(() => {
+                (entry.target as HTMLElement).classList.add('visible');
+              }, 80 * (idx % 4));
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+      reveals.forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,128 @@
+---
+const features = [
+  {
+    icon: '📊',
+    title: 'Echtzeit-Dashboard',
+    desc: 'Sieh in Echtzeit, wie viel Energie deine Community erzeugt, verbraucht und handelt — auf die Minute genau.',
+    badge: 'Live SSE-Updates',
+  },
+  {
+    icon: '💶',
+    title: 'Transparente Preise',
+    desc: '20 ct/kWh als Basispreis, angepasst an den SMARD-Marktpreis. Keine versteckten Kosten — nur 1,5 % Plattformgebühr.',
+    badge: 'SMARD-Integration',
+  },
+  {
+    icon: '🔐',
+    title: 'Rechtssichere Verträge',
+    desc: 'Jeder Handel wird mit einer fortgeschrittenen elektronischen Signatur nach eIDAS-VO abgesichert — vollautomatisch.',
+    badge: 'eIDAS-konform',
+  },
+  {
+    icon: '🔋',
+    title: 'Smartmeter-Anbindung',
+    desc: 'Unterstützt SML/IR-Protokolle und verschiedene Netzbetreiber-Adapter. Plug & Play für die meisten modernen Zähler.',
+    badge: 'SML · IR · Bridge',
+  },
+  {
+    icon: '👛',
+    title: 'Integriertes Wallet',
+    desc: 'Dein Guthaben, deine Auszahlungen, deine Trades — alles in einem transparenten Ledger. Aufladung per Banküberweisung.',
+    badge: 'Ledger-First',
+  },
+  {
+    icon: '🛡️',
+    title: 'DSGVO & § 42c EnWG',
+    desc: 'KiezPower agiert als IT-Service-Provider — ohne Bilanzkreisverantwortung. Alle Daten bleiben in Deutschland.',
+    badge: 'Made in Germany',
+  },
+];
+---
+
+<section class="features" id="features">
+  <div class="container">
+    <span class="section-tag reveal">Plattform</span>
+    <h2 class="section-title reveal">Alles drin, was du brauchst</h2>
+    <p class="section-sub reveal">
+      KiezPower ist mehr als ein Marktplatz — es ist eine vollständige
+      Infrastruktur für lokale Energiegemeinschaften.
+    </p>
+
+    <div class="features-grid">
+      {features.map((f) => (
+        <div class="feature-card reveal">
+          <div class="feature-icon" aria-hidden="true">{f.icon}</div>
+          <h3>{f.title}</h3>
+          <p>{f.desc}</p>
+          <span class="feature-badge">{f.badge}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .features {
+    padding: 6rem 2rem;
+    background: var(--night);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+
+  .feature-card {
+    background: var(--night-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .feature-card:hover {
+    border-color: rgba(34, 197, 94, 0.3);
+    transform: translateY(-3px);
+  }
+
+  .feature-icon {
+    width: 44px; height: 44px;
+    border-radius: var(--radius-md);
+    background: var(--green-glow);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .feature-card h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .feature-badge {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--green);
+    background: var(--green-glow);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+  }
+</style>

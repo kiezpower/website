@@ -1,0 +1,81 @@
+---
+// Animated SVG showing peer-to-peer energy flow between houses
+---
+
+<div class="p2p-visual" aria-hidden="true">
+  <svg class="p2p-svg" viewBox="0 0 640 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- ── Producer house (left) ── -->
+    <g transform="translate(60, 60)">
+      <rect x="10" y="50" width="80" height="60" rx="4" fill="#0F2040" stroke="#22C55E" stroke-width="1.5"/>
+      <polygon points="0,50 50,-5 100,50" fill="#162B4F" stroke="#22C55E" stroke-width="1.5"/>
+      <!-- Solar panels -->
+      <rect x="8"  y="22" width="20" height="10" rx="2" fill="#22C55E" opacity="0.8"/>
+      <rect x="31" y="18" width="20" height="10" rx="2" fill="#22C55E" opacity="0.9"/>
+      <rect x="54" y="22" width="20" height="10" rx="2" fill="#22C55E" opacity="0.8"/>
+      <!-- Door -->
+      <rect x="35" y="82" width="30" height="28" rx="3" fill="#162B4F" stroke="rgba(148,163,184,0.3)" stroke-width="1"/>
+      <!-- Window -->
+      <rect x="15" y="62" width="20" height="16" rx="2" fill="#162B4F" stroke="rgba(34,197,94,0.3)" stroke-width="1"/>
+      <line x1="25" y1="62" x2="25" y2="78" stroke="rgba(34,197,94,0.3)" stroke-width="0.5"/>
+    </g>
+    <text x="110" y="192" text-anchor="middle" fill="#94A3B8" font-family="Inter, sans-serif" font-size="11" font-weight="500">Produzent</text>
+    <text x="110" y="207" text-anchor="middle" fill="#22C55E" font-family="Inter, sans-serif" font-size="10">⚡ Überschuss</text>
+
+    <!-- ── Consumer house (right) ── -->
+    <g transform="translate(470, 60)">
+      <rect x="10" y="50" width="80" height="60" rx="4" fill="#0F2040" stroke="rgba(148,163,184,0.25)" stroke-width="1.5"/>
+      <polygon points="0,50 50,-5 100,50" fill="#162B4F" stroke="rgba(148,163,184,0.25)" stroke-width="1.5"/>
+      <rect x="35" y="82" width="30" height="28" rx="3" fill="#162B4F" stroke="rgba(148,163,184,0.3)" stroke-width="1"/>
+      <!-- Lit windows (amber = consuming power) -->
+      <rect x="15" y="62" width="20" height="16" rx="2" fill="rgba(245,158,11,0.2)" stroke="rgba(245,158,11,0.4)" stroke-width="1"/>
+      <rect x="65" y="62" width="20" height="16" rx="2" fill="rgba(245,158,11,0.2)" stroke="rgba(245,158,11,0.4)" stroke-width="1"/>
+    </g>
+    <text x="530" y="192" text-anchor="middle" fill="#94A3B8" font-family="Inter, sans-serif" font-size="11" font-weight="500">Konsument</text>
+    <text x="530" y="207" text-anchor="middle" fill="#F59E0B" font-family="Inter, sans-serif" font-size="10">🏠 Günstig laden</text>
+
+    <!-- ── KiezPower hub (center) ── -->
+    <circle cx="320" cy="110" r="30" fill="#0A1628" stroke="#22C55E" stroke-width="1.5"/>
+    <circle cx="320" cy="110" r="24" fill="rgba(34,197,94,0.08)"/>
+    <text x="320" y="107" text-anchor="middle" fill="#22C55E" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="700">KIEZ</text>
+    <text x="320" y="119" text-anchor="middle" fill="#22C55E" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="700">POWER</text>
+
+    <!-- ── Flow lines ── -->
+    <line x1="160" y1="110" x2="288" y2="110" stroke="rgba(34,197,94,0.2)" stroke-width="2"/>
+    <line x1="352" y1="110" x2="470" y2="110" stroke="rgba(34,197,94,0.2)" stroke-width="2"/>
+
+    <!-- ── Animated energy particles ── -->
+    <circle r="5" fill="#22C55E">
+      <animateMotion dur="2s" repeatCount="indefinite">
+        <mpath href="#path-left"/>
+      </animateMotion>
+    </circle>
+    <path id="path-left" d="M 160 110 L 288 110" fill="none"/>
+
+    <circle r="5" fill="#22C55E">
+      <animateMotion dur="2s" repeatCount="indefinite" begin="1s">
+        <mpath href="#path-right"/>
+      </animateMotion>
+    </circle>
+    <path id="path-right" d="M 352 110 L 470 110" fill="none"/>
+
+    <!-- ── Price label ── -->
+    <rect x="285" y="74" width="70" height="24" rx="6" fill="rgba(34,197,94,0.12)" stroke="rgba(34,197,94,0.25)"/>
+    <text x="320" y="91" text-anchor="middle" fill="#22C55E" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="600">20 ct/kWh</text>
+  </svg>
+</div>
+
+<style>
+  .p2p-visual {
+    width: 100%;
+    max-width: 640px;
+    margin-top: 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .p2p-svg {
+    width: 100%;
+    height: auto;
+  }
+</style>
