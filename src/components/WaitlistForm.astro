@@ -1,6 +1,4 @@
 ---
-// WaitlistForm.astro — mailto: basiert, kein Backend nötig
-const MAILTO = 'warteliste@kiez-power.de';
 ---
 
 <section class="waitlist" id="warteliste">
@@ -114,16 +112,17 @@ const MAILTO = 'warteliste@kiez-power.de';
             Platz auf Warteliste sichern →
           </button>
 
-          <p class="form-hint">
-            Dein E-Mail-Programm öffnet sich mit den Daten vorausgefüllt — einfach absenden.
+          <p class="form-hint" id="form-hint">
+            Kostenlos &amp; unverbindlich. Abmeldung jederzeit möglich.
           </p>
+          <p class="form-error" id="form-error" hidden></p>
         </form>
 
         <!-- Success state -->
         <div class="success-state" id="success-state" hidden>
           <div class="success-icon">✓</div>
-          <h3>Fast geschafft!</h3>
-          <p>Dein E-Mail-Programm wurde geöffnet. Schick die E-Mail ab — dann bist du auf der Warteliste.</p>
+          <h3>Du bist dabei!</h3>
+          <p>Wir melden uns, sobald KiezPower in deiner PLZ startet.</p>
         </div>
       </div>
 
@@ -254,7 +253,9 @@ const MAILTO = 'warteliste@kiez-power.de';
     box-shadow: 0 4px 24px rgba(34, 197, 94, 0.35);
   }
 
-  .form-hint { font-size: 0.72rem; color: var(--muted); text-align: center; line-height: 1.5; }
+  .form-hint  { font-size: 0.72rem; color: var(--muted); text-align: center; line-height: 1.5; }
+  .form-error { font-size: 0.8rem; color: #ef4444; text-align: center; line-height: 1.5; margin-top: 0.5rem; }
+  .form-error[hidden] { display: none; }
 
   /* Success */
   .success-state[hidden] { display: none; }
@@ -278,9 +279,17 @@ const MAILTO = 'warteliste@kiez-power.de';
   @media (max-width: 480px)  { .role-group { grid-template-columns: 1fr; } }
 </style>
 
-<script define:vars={{ MAILTO }}>
+<script>
+  import { createClient } from '@supabase/supabase-js';
+
+  const SUPABASE_URL      = 'https://xctbktqwpzbnsynofqtu.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhjdGJrdHF3cHpibnN5bm9mcXR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1ODkyNDUsImV4cCI6MjA5NzE2NTI0NX0.ooz9NOtW94AdVgI_2iLSe-pBJJ8q5XWwtKQCheTvZdA';
+
+  const supabase   = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   const form       = document.getElementById('waitlist-form');
   const successEl  = document.getElementById('success-state');
+  const submitBtn  = form.querySelector('button[type="submit"]');
+  const formError  = document.getElementById('form-error');
   const emailInput = document.getElementById('wl-email');
   const plzInput   = document.getElementById('wl-plz');
   const errEmail   = document.getElementById('err-email');
@@ -312,7 +321,7 @@ const MAILTO = 'warteliste@kiez-power.de';
     plzInput.classList.toggle('error', !!err);
   });
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const emailErr = validateEmail(emailInput.value);
@@ -323,29 +332,29 @@ const MAILTO = 'warteliste@kiez-power.de';
     plzInput.classList.toggle('error',   !!plzErr);
     if (emailErr || plzErr) return;
 
-    const role = form.querySelector('input[name="role"]:checked')?.value ?? 'Konsument';
     const email = emailInput.value.trim();
     const plz   = plzInput.value.trim();
+    const role  = form.querySelector('input[name="role"]:checked')?.value ?? 'Konsument';
 
-    const subject = encodeURIComponent(`KiezPower Warteliste – PLZ ${plz}`);
-    const body    = encodeURIComponent(
-`Neue Wartelisten-Anmeldung
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Wird gespeichert …';
+    formError.hidden = true;
 
-E-Mail:  ${email}
-PLZ:     ${plz}
-Rolle:   ${role}
-Datum:   ${new Date().toLocaleString('de-DE')}
+    const { error } = await supabase
+      .from('waitlist')
+      .insert({ email, plz, role });
 
----
-Automatisch generiert von kiezpower.de`
-    );
+    if (error) {
+      formError.textContent = error.code === '23505'
+        ? 'Diese E-Mail ist bereits auf der Warteliste.'
+        : 'Ein Fehler ist aufgetreten. Bitte versuche es später noch einmal.';
+      formError.hidden = false;
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Platz auf Warteliste sichern →';
+      return;
+    }
 
-    window.location.href = `mailto:${MAILTO}?subject=${subject}&body=${body}`;
-
-    // Show success hint after short delay
-    setTimeout(() => {
-      form.hidden = true;
-      successEl.hidden = false;
-    }, 800);
+    form.hidden = true;
+    successEl.hidden = false;
   });
 </script>
