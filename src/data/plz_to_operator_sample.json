@@ -1,0 +1,134 @@
+{
+  "10115": {
+    "name": "Stromnetz Berlin GmbH",
+    "mastrNummer": "SNB900003602568",
+    "city": "Berlin",
+    "street": "Puschkinallee",
+    "houseNumber": "52A",
+    "zipCode": "10115",
+    "state": "Berlin",
+    "country": "Deutschland",
+    "bdewId": "9900614000000"
+  },
+  "10179": {
+    "name": "Stromnetz Berlin GmbH",
+    "mastrNummer": "SNB900003602568",
+    "city": "Berlin",
+    "street": "Puschkinallee",
+    "houseNumber": "52A",
+    "zipCode": "10179",
+    "state": "Berlin",
+    "country": "Deutschland",
+    "bdewId": "9900614000000"
+  },
+  "20095": {
+    "name": "Stromnetz Hamburg GmbH",
+    "mastrNummer": "SNH900003602701",
+    "city": "Hamburg",
+    "street": "Überseering",
+    "houseNumber": "12",
+    "zipCode": "22297",
+    "state": "Hamburg",
+    "country": "Deutschland",
+    "bdewId": "9900623000009"
+  },
+  "20355": {
+    "name": "Stromnetz Hamburg GmbH",
+    "mastrNummer": "SNH900003602701",
+    "city": "Hamburg",
+    "street": "Überseering",
+    "houseNumber": "12",
+    "zipCode": "22297",
+    "state": "Hamburg",
+    "country": "Deutschland",
+    "bdewId": "9900623000009"
+  },
+  "80331": {
+    "name": "SWM Infrastruktur GmbH & Co. KG",
+    "mastrNummer": "SWM900003602999",
+    "city": "München",
+    "street": "Emmy-Noether-Straße",
+    "houseNumber": "2",
+    "zipCode": "80992",
+    "state": "Bayern",
+    "country": "Deutschland",
+    "bdewId": "9900537000002"
+  },
+  "80333": {
+    "name": "SWM Infrastruktur GmbH & Co. KG",
+    "mastrNummer": "SWM900003602999",
+    "city": "München",
+    "street": "Emmy-Noether-Straße",
+    "houseNumber": "2",
+    "zipCode": "80992",
+    "state": "Bayern",
+    "country": "Deutschland",
+    "bdewId": "9900537000002"
+  },
+  "50667": {
+    "name": "RheinEnergie Netzgesellschaft mbH",
+    "mastrNummer": "REN900003603100",
+    "city": "Köln",
+    "street": "Parkgürtel",
+    "houseNumber": "24",
+    "zipCode": "50823",
+    "state": "Nordrhein-Westfalen",
+    "country": "Deutschland",
+    "bdewId": "9900465000004"
+  },
+  "60311": {
+    "name": "Netzdienste Rhein-Main GmbH",
+    "mastrNummer": "NRM900003603200",
+    "city": "Frankfurt am Main",
+    "street": "Gutleutstraße",
+    "houseNumber": "96",
+    "zipCode": "60327",
+    "state": "Hessen",
+    "country": "Deutschland",
+    "bdewId": "9900312000007"
+  },
+  "70173": {
+    "name": "Netze BW GmbH",
+    "mastrNummer": "NBW900003603300",
+    "city": "Stuttgart",
+    "street": "Schelmenwasenstraße",
+    "houseNumber": "15",
+    "zipCode": "70567",
+    "state": "Baden-Württemberg",
+    "country": "Deutschland",
+    "bdewId": "9900572000003"
+  },
+  "30159": {
+    "name": "enercity Netz GmbH",
+    "mastrNummer": "ENG900003603400",
+    "city": "Hannover",
+    "street": "Ihmeplatz",
+    "houseNumber": "3",
+    "zipCode": "30449",
+    "state": "Niedersachsen",
+    "country": "Deutschland",
+    "bdewId": "9900267000005"
+  },
+  "04109": {
+    "name": "Netz Leipzig GmbH",
+    "mastrNummer": "NLG900003603500",
+    "city": "Leipzig",
+    "street": "Augustusplatz",
+    "houseNumber": "3",
+    "zipCode": "04109",
+    "state": "Sachsen",
+    "country": "Deutschland",
+    "bdewId": "9900450000001"
+  },
+  "01067": {
+    "name": "SachsenEnergie AG",
+    "mastrNummer": "SAE900003603600",
+    "city": "Dresden",
+    "street": "Friedrich-List-Platz",
+    "houseNumber": "2",
+    "zipCode": "01069",
+    "state": "Sachsen",
+    "country": "Deutschland",
+    "bdewId": "9900520000008"
+  }
+}
