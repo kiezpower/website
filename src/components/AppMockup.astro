@@ -1,0 +1,623 @@
+---
+---
+
+<section class="app-mockup-section">
+  <div class="container">
+    <span class="section-tag reveal">Die App</span>
+    <h2 class="section-title reveal">Dein Energie-Dashboard</h2>
+    <p class="section-sub reveal">
+      Alles auf einen Blick — Echtzeit-Markt, deine Ersparnisse und automatische Trades.
+    </p>
+
+    <div class="mockup-wrapper reveal">
+      <!-- Browser chrome -->
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="browser-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="browser-url">app.kiez-power.de/dashboard</div>
+          <div class="browser-actions"></div>
+        </div>
+
+        <!-- App content -->
+        <div class="app-content">
+
+          <!-- Sidebar -->
+          <aside class="app-sidebar">
+            <div class="sidebar-logo">⚡ KP</div>
+            <nav class="sidebar-nav">
+              <a class="nav-item active" aria-label="Dashboard">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+              </a>
+              <a class="nav-item" aria-label="Marktplatz">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+              </a>
+              <a class="nav-item" aria-label="Wallet">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M16 12h2"/></svg>
+              </a>
+              <a class="nav-item" aria-label="Profil">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+              </a>
+            </nav>
+          </aside>
+
+          <!-- Main dashboard -->
+          <main class="app-main">
+
+            <!-- Top bar -->
+            <div class="app-topbar">
+              <div>
+                <div class="app-greeting">Guten Morgen, Christian ☀️</div>
+                <div class="app-sub">Deine PV-Anlage läuft · Dierhagen, 18347</div>
+              </div>
+              <div class="live-badge">
+                <span class="live-dot"></span>
+                Live
+              </div>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="kpi-grid">
+              <div class="kpi-card savings">
+                <div class="kpi-label">💰 Du sparst diesen Monat</div>
+                <div class="kpi-value green">14,40 €</div>
+                <div class="kpi-hint">26 ct vs. 38 ct/kWh</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-label">🌿 CO₂ gespart</div>
+                <div class="kpi-value">7,3 kg</div>
+                <div class="kpi-hint">diesen Monat</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-label">⚡ Verfügbare Energie</div>
+                <div class="kpi-value">342 kWh</div>
+                <div class="kpi-hint">8 offene Angebote</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-label">🏘️ Community spart</div>
+                <div class="kpi-value">1.240 €</div>
+                <div class="kpi-hint">gesamt diesen Monat</div>
+              </div>
+            </div>
+
+            <!-- Bottom row: chart + live market -->
+            <div class="bottom-row">
+
+              <!-- Energy chart -->
+              <div class="chart-card">
+                <div class="chart-header">
+                  <span class="chart-title">Erzeugung &amp; Verbrauch</span>
+                  <div class="chart-tabs">
+                    <button class="chart-tab active">24h</button>
+                    <button class="chart-tab">7d</button>
+                  </div>
+                </div>
+                <svg class="energy-chart" viewBox="0 0 300 80" preserveAspectRatio="none">
+                  <!-- Generation area (green) -->
+                  <defs>
+                    <linearGradient id="genGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#22C55E" stop-opacity="0.4"/>
+                      <stop offset="100%" stop-color="#22C55E" stop-opacity="0.02"/>
+                    </linearGradient>
+                    <linearGradient id="conGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.35"/>
+                      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.02"/>
+                    </linearGradient>
+                  </defs>
+                  <!-- Generation -->
+                  <path d="M0,75 C20,72 30,60 50,30 C70,5 80,3 100,5 C120,7 130,8 150,12 C170,16 180,50 200,60 C220,68 250,70 300,72 L300,80 L0,80Z"
+                        fill="url(#genGrad)"/>
+                  <path d="M0,75 C20,72 30,60 50,30 C70,5 80,3 100,5 C120,7 130,8 150,12 C170,16 180,50 200,60 C220,68 250,70 300,72"
+                        fill="none" stroke="#22C55E" stroke-width="1.5"/>
+                  <!-- Consumption -->
+                  <path d="M0,65 C20,63 40,58 70,52 C100,46 120,44 150,45 C180,46 210,50 240,52 C260,54 280,55 300,56 L300,80 L0,80Z"
+                        fill="url(#conGrad)"/>
+                  <path d="M0,65 C20,63 40,58 70,52 C100,46 120,44 150,45 C180,46 210,50 240,52 C260,54 280,55 300,56"
+                        fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="4 2"/>
+                </svg>
+                <div class="chart-legend">
+                  <span class="legend-item green">Erzeugung</span>
+                  <span class="legend-item blue">Verbrauch</span>
+                </div>
+              </div>
+
+              <!-- Live market -->
+              <div class="market-card">
+                <div class="market-header">
+                  <span class="market-title">Energiemarkt</span>
+                  <span class="market-live">
+                    <span class="live-dot small"></span>
+                    Live
+                  </span>
+                </div>
+                <div class="market-stats">
+                  <div class="market-stat">
+                    <div class="market-stat-value">8</div>
+                    <div class="market-stat-label">Offene Angebote</div>
+                  </div>
+                  <div class="market-stat">
+                    <div class="market-stat-value">342 <span>kWh</span></div>
+                    <div class="market-stat-label">Verfügbare Energie</div>
+                  </div>
+                </div>
+                <div class="market-event">
+                  <span class="event-ping"></span>
+                  Energie erfolgreich gehandelt
+                </div>
+                <div class="market-transactions">
+                  <div class="tx-row">
+                    <span class="tx-type sell">↑</span>
+                    <span class="tx-id">TX-4821</span>
+                    <span class="tx-amount">12,4 kWh</span>
+                    <span class="tx-status done">✓</span>
+                  </div>
+                  <div class="tx-row">
+                    <span class="tx-type buy">↓</span>
+                    <span class="tx-id">TX-4819</span>
+                    <span class="tx-amount">8,1 kWh</span>
+                    <span class="tx-status done">✓</span>
+                  </div>
+                  <div class="tx-row">
+                    <span class="tx-type sell">↑</span>
+                    <span class="tx-id">TX-4815</span>
+                    <span class="tx-amount">5,7 kWh</span>
+                    <span class="tx-status pending">⏳</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </main>
+        </div>
+      </div>
+
+      <!-- Glow decoration -->
+      <div class="mockup-glow" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .app-mockup-section {
+    padding: 6rem 2rem;
+    background: var(--night-mid);
+    border-top: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  /* ── Wrapper & glow ── */
+  .mockup-wrapper {
+    position: relative;
+    margin-top: 3rem;
+    max-width: 960px;
+  }
+
+  .mockup-glow {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 80px;
+    background: rgba(34, 197, 94, 0.15);
+    filter: blur(40px);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Browser frame ── */
+  .browser-frame {
+    position: relative;
+    z-index: 1;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.04),
+      0 32px 80px rgba(0,0,0,0.6),
+      0 0 60px rgba(34, 197, 94, 0.08);
+  }
+
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1rem;
+    background: #0d1f38;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .browser-dots {
+    display: flex;
+    gap: 5px;
+    flex-shrink: 0;
+  }
+
+  .browser-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(148,163,184,0.2);
+  }
+
+  .browser-dots span:nth-child(1) { background: #ff5f57; }
+  .browser-dots span:nth-child(2) { background: #febc2e; }
+  .browser-dots span:nth-child(3) { background: #28c840; }
+
+  .browser-url {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.2rem 0.75rem;
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-family: monospace;
+    text-align: center;
+  }
+
+  .browser-actions { width: 60px; flex-shrink: 0; }
+
+  /* ── App layout ── */
+  .app-content {
+    display: flex;
+    background: #0b1a2f;
+    min-height: 420px;
+  }
+
+  /* ── Sidebar ── */
+  .app-sidebar {
+    width: 52px;
+    background: #081525;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem 0;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .sidebar-logo {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--green);
+    letter-spacing: -0.04em;
+    margin-bottom: 0.75rem;
+  }
+
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 100%;
+    padding: 0 0.4rem;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 6px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .nav-item.active {
+    background: rgba(34, 197, 94, 0.12);
+    color: var(--green);
+  }
+
+  /* ── Main ── */
+  .app-main {
+    flex: 1;
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    overflow: hidden;
+  }
+
+  .app-topbar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .app-greeting {
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .app-sub {
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 0.15rem;
+  }
+
+  .live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: var(--green);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse-live 2s ease-in-out infinite;
+  }
+
+  .live-dot.small { width: 5px; height: 5px; }
+
+  @keyframes pulse-live {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  /* ── KPI cards ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+  }
+
+  .kpi-card {
+    background: #0f2040;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.65rem 0.75rem;
+  }
+
+  .kpi-label {
+    font-size: 0.62rem;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+
+  .kpi-value {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+
+  .kpi-value.green { color: var(--green); }
+
+  .kpi-hint {
+    font-size: 0.58rem;
+    color: var(--muted);
+    opacity: 0.7;
+  }
+
+  /* ── Bottom row ── */
+  .bottom-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.75rem;
+    flex: 1;
+  }
+
+  /* ── Chart ── */
+  .chart-card {
+    background: #0f2040;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .chart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .chart-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .chart-tabs {
+    display: flex;
+    gap: 2px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    padding: 2px;
+  }
+
+  .chart-tab {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.4rem;
+    border: none;
+    border-radius: 3px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+  }
+
+  .chart-tab.active {
+    background: var(--night-light);
+    color: var(--white);
+  }
+
+  .energy-chart {
+    width: 100%;
+    height: 70px;
+    flex: 1;
+  }
+
+  .chart-legend {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .legend-item {
+    font-size: 0.6rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .legend-item::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 2px;
+    border-radius: 1px;
+  }
+
+  .legend-item.green::before { background: var(--green); }
+  .legend-item.blue::before { background: #3B82F6; }
+
+  /* ── Market card ── */
+  .market-card {
+    width: 170px;
+    background: #0f2040;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    flex-shrink: 0;
+  }
+
+  .market-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .market-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .market-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--green);
+  }
+
+  .market-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+  }
+
+  .market-stat {
+    background: rgba(34, 197, 94, 0.06);
+    border-radius: 6px;
+    padding: 0.4rem 0.5rem;
+  }
+
+  .market-stat-value {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1;
+  }
+
+  .market-stat-value span {
+    font-size: 0.6rem;
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  .market-stat-label {
+    font-size: 0.55rem;
+    color: var(--muted);
+    margin-top: 0.15rem;
+  }
+
+  .market-event {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255,255,255,0.04);
+    border-radius: 4px;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.58rem;
+    color: var(--muted);
+  }
+
+  .event-ping {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+    animation: pulse-live 1.5s ease-in-out infinite;
+  }
+
+  /* ── Transactions ── */
+  .market-transactions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .tx-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.6rem;
+    color: var(--muted);
+  }
+
+  .tx-type {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .tx-type.sell { background: rgba(34, 197, 94, 0.15); color: var(--green); }
+  .tx-type.buy  { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+
+  .tx-id     { color: var(--muted); opacity: 0.6; flex-shrink: 0; }
+  .tx-amount { flex: 1; color: var(--white); font-weight: 500; }
+
+  .tx-status.done    { color: var(--green); }
+  .tx-status.pending { color: var(--amber); }
+
+  /* ── Responsive: hide on very small screens ── */
+  @media (max-width: 700px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .bottom-row { grid-template-columns: 1fr; }
+    .market-card { width: 100%; }
+    .app-sidebar { display: none; }
+  }
+</style>
