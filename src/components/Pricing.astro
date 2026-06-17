@@ -2,27 +2,27 @@
 const plans = [
   {
     role: '☀️ Produzent',
-    amount: 'ab 13¢',
-    unit: '/ kWh',
-    note: 'Richtwert — du setzt deinen Mindestpreis',
+    amount: '1,5 %',
+    unit: 'Plattformgebühr',
+    note: 'Energiepreis wird direkt mit dem Käufer vereinbart',
     featured: false,
     features: [
-      'Mehr als die Einspeisevergütung',
+      'Du setzt deinen eigenen Mindestpreis',
       'Automatisches Sell-Matching',
-      'Volumenrabatt ab 50 kWh/Monat',
       'Echtzeit-Statistiken',
       'Auszahlung aufs Konto',
+      'Volle Preistransparenz',
     ],
   },
   {
     role: '🏠 Konsument',
-    amount: 'bis 20¢',
-    unit: '/ kWh',
-    note: '+ 1,5 % Plattformgebühr — du setzt dein Limit',
+    amount: '1,5 %',
+    unit: 'Plattformgebühr',
+    note: 'Energiepreis wird direkt mit dem Produzenten vereinbart',
     featured: true,
     features: [
-      'Günstiger als Grundversorger',
-      'Grüner Kiez-Strom',
+      'Du setzt dein persönliches Preislimit',
+      'Lokaler Kiez-Strom',
       'Automatisches Buy-Matching',
       'Transparente Abrechnung',
       'Keine Mindestlaufzeit',
@@ -41,10 +41,11 @@ const compliance = [
 <section class="pricing" id="preise">
   <div class="container">
     <span class="section-tag reveal">Preismodell</span>
-    <h2 class="section-title reveal">Fair für alle Seiten</h2>
+    <h2 class="section-title reveal">Transparent für alle Seiten</h2>
     <p class="section-sub reveal">
-      Egal ob du Strom produzierst oder verbrauchst — KiezPower ist günstiger
-      als der Grundversorger und fairer als der Markt.
+      KiezPower erhebt 1,5 % Plattformgebühr — das ist alles. Den Energiepreis
+      vereinbaren Produzent und Konsument direkt miteinander. Netzentgelte,
+      Steuern und Abgaben werden separat vom Netzbetreiber abgerechnet.
     </p>
 
     <div class="pricing-grid reveal">
