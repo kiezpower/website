@@ -1,0 +1,586 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+
+const valueProps = [
+  {
+    icon: '🏗️',
+    title: 'Schnelle Integration',
+    desc: 'REST-API, Webhooks und vollständige Dokumentation. Ihr Team ist in Wochen live — nicht in Monaten.',
+  },
+  {
+    icon: '⚖️',
+    title: 'Rechtssicher out-of-the-box',
+    desc: '§ 42c EnWG, eIDAS-konforme E-Signatur, DSGVO, MsbG — KiezPower übernimmt die regulatorische Komplexität.',
+  },
+  {
+    icon: '🏘️',
+    title: 'Lokal verankert',
+    desc: 'Ihre Kunden handeln Strom im eigenen Netzgebiet. Lokale Wertschöpfung als Differenzierungsmerkmal für Ihre Marke.',
+  },
+];
+
+const useCases = [
+  {
+    icon: '⚡',
+    title: 'Stadtwerke',
+    desc: 'Bieten Sie Ihren Kunden einen eigenen P2P-Energiemarktplatz an — als White-Label-Erweiterung Ihres bestehenden Angebots. KiezPower liefert die Plattform, Sie behalten die Kundenbeziehung.',
+  },
+  {
+    icon: '🏢',
+    title: 'Wohnungsunternehmen',
+    desc: 'Mieter mit PV-Anlage auf dem Dach verkaufen Überschussstrom direkt an Nachbarn im selben Gebäude oder Quartier. Energiegemeinschaft ohne Eigenentwicklung.',
+  },
+  {
+    icon: '🔌',
+    title: 'Netzbetreiber',
+    desc: 'Pilotprojekte zu lokaler Flexibilität und Netzentlastung. KiezPower liefert die Marktplatzdaten und die Matching-Logik — Sie behalten die Kontrolle über Ihr Netz.',
+  },
+  {
+    icon: '🌱',
+    title: 'Energiegenossenschaften',
+    desc: 'Digitalisieren Sie den internen Stromhandel Ihrer Genossenschaft. Transparente Abrechnung, eIDAS-Verträge und automatisches Matching für alle Mitglieder.',
+  },
+];
+
+const compliance = [
+  { label: '§ 42c EnWG',  desc: 'IT-Service-Provider Modell' },
+  { label: 'eIDAS-VO',    desc: 'Fortgeschrittene E-Signatur' },
+  { label: 'DSGVO',       desc: 'Daten in Deutschland' },
+  { label: 'MsbG',        desc: 'Smartmeter-Integration' },
+];
+---
+
+<BaseLayout
+  title="Für Netzbetreiber & Wohnungsunternehmen — KiezPower"
+  description="KiezPower als White-Label P2P-Energieplattform für Stadtwerke, Wohnungsunternehmen und Netzbetreiber. § 42c EnWG, eIDAS-konform, REST-API."
+>
+  <Nav />
+  <main>
+
+    <!-- Hero -->
+    <section class="b2b-hero">
+      <div class="container">
+        <span class="section-tag">Für Partner</span>
+        <h1>
+          Für Netzbetreiber &amp;<br />
+          <em>Wohnungsunternehmen</em>
+        </h1>
+        <p class="hero-sub">
+          KiezPower ist die fertige Infrastruktur für lokalen Peer-to-Peer Stromhandel —
+          regulatorisch abgesichert, API-first und in Wochen integrierbar.
+        </p>
+        <div class="hero-actions">
+          <a href="#demo" class="btn-primary">Demo anfragen →</a>
+          <a href="/" class="btn-ghost">Zur Plattform</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Value Props -->
+    <section class="value-props">
+      <div class="container">
+        <div class="vp-grid">
+          {valueProps.map((vp) => (
+            <div class="vp-card reveal">
+              <div class="vp-icon">{vp.icon}</div>
+              <h3>{vp.title}</h3>
+              <p>{vp.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="use-cases">
+      <div class="container">
+        <span class="section-tag reveal">Anwendungsfälle</span>
+        <h2 class="section-title reveal">Wer mit KiezPower arbeitet</h2>
+        <div class="uc-grid">
+          {useCases.map((uc) => (
+            <div class="uc-card reveal">
+              <div class="uc-icon">{uc.icon}</div>
+              <div>
+                <h3>{uc.title}</h3>
+                <p>{uc.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Compliance strip -->
+    <section class="compliance-section">
+      <div class="container">
+        <div class="compliance-strip reveal">
+          {compliance.map((c) => (
+            <div class="compliance-item">
+              <div class="compliance-dot" aria-hidden="true"></div>
+              <div><strong>{c.label}</strong> — {c.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Demo Form -->
+    <section class="b2b-cta" id="demo">
+      <div class="container">
+        <div class="cta-box reveal">
+          <span class="section-tag">Kontakt</span>
+          <h2>Interesse? Wir reden gern.</h2>
+          <p>
+            Wir melden uns innerhalb von 24 Stunden für ein erstes Gespräch.
+          </p>
+
+          <form id="demo-form" novalidate>
+            <div class="field">
+              <label for="demo-company">Unternehmen</label>
+              <input id="demo-company" name="company" type="text" placeholder="Stadtwerke Musterstadt GmbH" required />
+              <span class="field-error" id="err-company"></span>
+            </div>
+            <div class="field">
+              <label for="demo-email">E-Mail</label>
+              <input id="demo-email" name="email" type="email" placeholder="anfrage@stadtwerke.de" autocomplete="email" required />
+              <span class="field-error" id="err-email"></span>
+            </div>
+            <div class="field">
+              <label for="demo-message">Kurze Beschreibung <span class="optional">(optional)</span></label>
+              <textarea id="demo-message" name="message" rows="3" placeholder="Was beschäftigt Sie? Welche Lösung suchen Sie?"></textarea>
+            </div>
+            <button type="submit" class="btn-primary submit-btn">Demo anfragen →</button>
+            <p class="form-error" id="form-error" hidden></p>
+          </form>
+
+          <div class="success-state" id="success-state" hidden>
+            <div class="success-icon">✓</div>
+            <h3>Anfrage eingegangen.</h3>
+            <p>Wir melden uns innerhalb von 24 Stunden.</p>
+          </div>
+
+          <p class="cta-hint">
+            Oder direkt: <a href="mailto:info@kiez-power.de">info@kiez-power.de</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ── Hero ── */
+  .b2b-hero {
+    padding: 9rem 2rem 5rem;
+    background: var(--night);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .b2b-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(34, 197, 94, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34, 197, 94, 0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .b2b-hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 50% 40% at 50% 30%, rgba(34, 197, 94, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .b2b-hero .container { position: relative; z-index: 1; }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    max-width: 760px;
+    margin: 1rem auto 1.5rem;
+    color: var(--white);
+  }
+
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--green) 0%, #86efac 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ── Value Props ── */
+  .value-props {
+    padding: 5rem 2rem;
+    background: var(--night-mid);
+    border-top: 1px solid var(--border);
+  }
+
+  .vp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+  }
+
+  .vp-card {
+    background: var(--night);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+  }
+
+  .vp-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .vp-card h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .vp-card p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── Use Cases ── */
+  .use-cases {
+    padding: 5rem 2rem;
+    background: var(--night);
+    border-top: 1px solid var(--border);
+  }
+
+  .uc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .uc-card {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    background: var(--night-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+  }
+
+  .uc-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .uc-card h3 {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+  }
+
+  .uc-card p {
+    font-size: 0.825rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── Compliance ── */
+  .compliance-section {
+    padding: 0 2rem 4rem;
+    background: var(--night);
+  }
+
+  .compliance-strip {
+    background: var(--night-light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.8rem 2.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .compliance-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .compliance-item strong { color: var(--white); font-weight: 600; }
+
+  .compliance-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+  }
+
+  /* ── CTA ── */
+  .b2b-cta {
+    padding: 5rem 2rem;
+    background: var(--night-mid);
+    border-top: 1px solid var(--border);
+  }
+
+  .cta-box {
+    background: var(--night);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+    max-width: 600px;
+    text-align: center;
+  }
+
+  .cta-box h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--white);
+    margin: 1rem 0 0.75rem;
+  }
+
+  .cta-box > p {
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+    font-size: 0.95rem;
+  }
+
+  .cta-hint {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .cta-hint a {
+    color: var(--green);
+    text-decoration: none;
+  }
+
+  .cta-hint a:hover { text-decoration: underline; }
+
+  /* ── Demo form ── */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+
+  .field label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .optional {
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    opacity: 0.7;
+  }
+
+  .field input,
+  .field textarea {
+    background: var(--night-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+    resize: vertical;
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder { color: rgba(148, 163, 184, 0.4); }
+
+  .field input:focus,
+  .field textarea:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+  }
+
+  .field input.error {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+  }
+
+  .field-error {
+    font-size: 0.75rem;
+    color: #ef4444;
+    min-height: 1rem;
+    display: block;
+  }
+
+  .submit-btn {
+    width: 100%;
+    margin-top: 0.25rem;
+  }
+
+  .form-error {
+    font-size: 0.8rem;
+    color: #ef4444;
+    text-align: center;
+    margin-top: 0.75rem;
+  }
+
+  .form-error[hidden] { display: none; }
+
+  .success-state[hidden] { display: none; }
+
+  .success-state {
+    text-align: center;
+    padding: 1.5rem 0;
+  }
+
+  .success-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(34, 197, 94, 0.12);
+    border: 2px solid var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: var(--green);
+    font-weight: 700;
+    margin: 0 auto 1rem;
+    animation: pop-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes pop-in {
+    from { transform: scale(0.5); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+  }
+
+  .success-state h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+
+  .success-state p { color: var(--muted); font-size: 0.875rem; }
+</style>
+
+<script>
+  import { createClient } from '@supabase/supabase-js';
+
+  const supabase = createClient(
+    import.meta.env.PUBLIC_SUPABASE_URL,
+    import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
+  );
+
+  const form       = document.getElementById('demo-form') as HTMLFormElement;
+  const successEl  = document.getElementById('success-state') as HTMLElement;
+  const submitBtn  = form?.querySelector('button[type="submit"]') as HTMLButtonElement;
+  const formError  = document.getElementById('form-error') as HTMLElement;
+  const companyEl  = document.getElementById('demo-company') as HTMLInputElement;
+  const emailEl    = document.getElementById('demo-email') as HTMLInputElement;
+  const messageEl  = document.getElementById('demo-message') as HTMLTextAreaElement;
+  const errCompany = document.getElementById('err-company') as HTMLElement;
+  const errEmail   = document.getElementById('err-email') as HTMLElement;
+
+  function validateEmail(v: string) {
+    if (!v) return 'E-Mail ist erforderlich.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return 'Bitte gültige E-Mail eingeben.';
+    return '';
+  }
+
+  companyEl.addEventListener('blur', () => {
+    const err = companyEl.value.trim() ? '' : 'Unternehmensname ist erforderlich.';
+    errCompany.textContent = err;
+    companyEl.classList.toggle('error', !!err);
+  });
+
+  emailEl.addEventListener('blur', () => {
+    const err = validateEmail(emailEl.value.trim());
+    errEmail.textContent = err;
+    emailEl.classList.toggle('error', !!err);
+  });
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const company = companyEl.value.trim();
+    const email   = emailEl.value.trim();
+    const message = messageEl.value.trim();
+
+    const companyErr = company ? '' : 'Unternehmensname ist erforderlich.';
+    const emailErr   = validateEmail(email);
+
+    errCompany.textContent = companyErr;
+    errEmail.textContent   = emailErr;
+    companyEl.classList.toggle('error', !!companyErr);
+    emailEl.classList.toggle('error', !!emailErr);
+    if (companyErr || emailErr) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Wird gesendet …';
+    formError.hidden = true;
+
+    const { error } = await supabase
+      .from('demo_requests')
+      .insert({ company, email, message: message || null });
+
+    if (error) {
+      formError.textContent = 'Ein Fehler ist aufgetreten. Bitte versuche es später noch einmal.';
+      formError.hidden = false;
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Demo anfragen →';
+      return;
+    }
+
+    form.hidden = true;
+    successEl.hidden = false;
+  });
+</script>
