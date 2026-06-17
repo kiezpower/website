@@ -11,8 +11,8 @@ export function getStaticPaths() {
 const { plz } = Astro.params;
 const op = operators[plz as keyof typeof operators];
 
-const title       = `Solarstrom verkaufen in ${op.city} (${plz}) — KiezPower`;
-const description = `Du hast eine PV-Anlage in ${op.city}? Mit KiezPower verkaufst du deinen Überschussstrom direkt an Nachbarn in PLZ ${plz} — vollautomatisch über ${op.name}.`;
+const title       = `Solarstrom verkaufen in ${op.plzCity} (${plz}) — KiezPower`;
+const description = `Du hast eine PV-Anlage in ${op.plzCity}? Mit KiezPower verkaufst du deinen Überschussstrom direkt an Nachbarn in PLZ ${plz} — vollautomatisch über ${op.name}.`;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -27,10 +27,10 @@ const description = `Du hast eine PV-Anlage in ${op.city}? Mit KiezPower verkauf
       </div>
 
       <span class="section-tag">{op.state} · PLZ {plz}</span>
-      <h1>Solarstrom verkaufen in {op.city}</h1>
+      <h1>Solarstrom verkaufen in {op.plzCity}</h1>
       <p class="lead">
         Du erzeugst mehr Strom als du verbrauchst? KiezPower handelt deinen
-        Überschuss direkt an Nachbarn in {op.city} — ab 13 ct/kWh statt der
+        Überschuss direkt an Nachbarn in {op.plzCity} — ab 13 ct/kWh statt der
         üblichen Einspeisevergütung.
         Der Preis wird von dir festgelegt, KiezPower matched dich automatisch mit Käufern in deiner Nähe, und das Ganze ist rechtssicher und vollautomatisch.
       </p>
@@ -42,7 +42,7 @@ const description = `Du hast eine PV-Anlage in ${op.city}? Mit KiezPower verkauf
         </div>
         <div class="info-card">
           <div class="info-label">Region</div>
-          <div class="info-value">{op.city}, {op.state}</div>
+          <div class="info-value">{op.plzCity}, {op.state}</div>
         </div>
         <div class="info-card">
           <div class="info-label">Postleitzahl</div>
@@ -55,7 +55,7 @@ const description = `Du hast eine PV-Anlage in ${op.city}? Mit KiezPower verkauf
       </div>
 
       <div class="benefits">
-        <h2>Warum KiezPower in {op.city}?</h2>
+        <h2>Warum KiezPower in {op.plzCity}?</h2>
         <ul>
           <li>
             <strong>Bis zu 2,5× mehr</strong> als die gesetzliche Einspeisevergütung
@@ -73,7 +73,7 @@ const description = `Du hast eine PV-Anlage in ${op.city}? Mit KiezPower verkauf
       </div>
 
       <div class="cta-box">
-        <h2>KiezPower kommt nach {op.city}</h2>
+        <h2>KiezPower kommt nach {op.plzCity}</h2>
         <p>
           Trag dich jetzt auf die Warteliste ein — wir starten dort zuerst,
           wo die Nachfrage am größten ist.
