@@ -1,0 +1,786 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const useCases = [
+  {
+    icon: '⚡',
+    label: 'Stadtwerke',
+    headline: 'Ihr eigener P2P-Marktplatz — unter Ihrer Marke.',
+    desc: 'White-Label-Integration in Ihr Kundenportal. KiezPower übernimmt Matching, Abrechnung und Vertragsabschluss im Hintergrund. Sie behalten die Kundenbeziehung und positionieren sich als digitaler Innovationsführer.',
+    highlights: ['White-Label UI', 'Eigene Domain möglich', 'Co-Branding oder Full-Label'],
+  },
+  {
+    icon: '🏢',
+    label: 'Wohnungsunternehmen',
+    headline: 'Energiegemeinschaft für Ihre Mieter — ohne Eigenentwicklung.',
+    desc: 'Mieter mit PV-Anlage verkaufen Überschussstrom direkt an Nachbarn im Quartier. Automatische Abrechnung, eIDAS-konforme Verträge und vollständiges Reporting. Ihre IT muss nichts bauen.',
+    highlights: ['Quartierslösungen', 'Mieter-App inklusive', 'Monatlicher Reporting-Export'],
+  },
+  {
+    icon: '🔌',
+    label: 'Netzbetreiber & DSOs',
+    headline: 'Lokale Flexibilität als Pilotprojekt — mit echten Daten.',
+    desc: 'KiezPower liefert granulare 15-Minuten-Handelsdaten aus Ihrem Netzgebiet: welche Haushalte wann wieviel handeln, wo Lastspitzen entstehen. Ideal für BNetzA-Pilotprojekte zu § 14a EnWG und lokaler Flexibilität.',
+    highlights: ['15min-Auflösung', 'Netzgebiet-Filterung', 'REST-API für Ihr Leitsystem'],
+  },
+];
+
+const features = [
+  {
+    category: 'Plattform',
+    items: [
+      'Automatisches 15-Minuten-Matching',
+      'eIDAS-konforme digitale Vertragsabschlüsse',
+      'Wallet & Prepaid-Abrechnungslogik',
+      'Smartmeter-Integration (MsbG-konform)',
+      'Echtzeit-Dashboard für Endkunden',
+    ],
+  },
+  {
+    category: 'Integration',
+    items: [
+      'REST-API mit OpenAPI 3.0 Dokumentation',
+      'Webhook-Events für alle Handelstransaktionen',
+      'White-Label-UI (eigene Domain, eigenes Logo)',
+      'SSO / SAML-Integration auf Anfrage',
+      'CSV/SFTP-Export für Ihre Buchhaltung',
+    ],
+  },
+  {
+    category: 'Compliance & Betrieb',
+    items: [
+      '§ 42c EnWG — kein Versorgerstatus für Sie',
+      'DSGVO-konform, Daten in AWS Frankfurt',
+      'Audit-Log aller Transaktionen (10 Jahre)',
+      'BNetzA-Meldepflichten übernehmen wir',
+      'Monatlicher Compliance-Report',
+    ],
+  },
+];
+
+const tiers = [
+  {
+    name: 'Pilot',
+    price: 'Auf Anfrage',
+    priceNote: 'Erfolgsbasierte Pilotstruktur',
+    highlight: false,
+    desc: 'Für den ersten Piloten mit bis zu 50 aktiven Haushalten. Gemeinsame Evaluation über 3–6 Monate.',
+    includes: [
+      'Vollständige Plattformfunktionen',
+      'Bis zu 50 Haushalte',
+      'Onboarding & Setup inklusive',
+      'Dedizierter Ansprechpartner',
+      'Monatliches Review-Call',
+    ],
+    cta: 'Pilot anfragen',
+    ctaHref: '#demo',
+  },
+  {
+    name: 'Professional',
+    price: 'ab 1.490 €',
+    priceNote: 'pro Monat, zzgl. MwSt.',
+    highlight: true,
+    desc: 'Für Stadtwerke und Wohnungsunternehmen im Rollout. Unbegrenzte Haushalte, SLA und White-Label.',
+    includes: [
+      'Alles aus Pilot',
+      'Unbegrenzte Haushalte',
+      'White-Label UI & Domain',
+      'SLA 99,5 % Uptime',
+      'Priority Support (< 4h Reaktionszeit)',
+      'Quartalsbericht & Benchmarking',
+    ],
+    cta: 'Demo anfragen',
+    ctaHref: '#demo',
+  },
+  {
+    name: 'Enterprise',
+    price: 'Individuell',
+    priceNote: 'Jahresvertrag, dedizierte Instanz',
+    highlight: false,
+    desc: 'Für Netzbetreiber und große Wohnungskonzerne mit eigenen Compliance- und Infrastrukturanforderungen.',
+    includes: [
+      'Alles aus Professional',
+      'Dedizierte Cloud-Instanz',
+      'SSO / SAML Integration',
+      'SLA 99,9 % Uptime',
+      'Custom Reporting',
+      'On-Site Onboarding möglich',
+    ],
+    cta: 'Kontakt aufnehmen',
+    ctaHref: '#demo',
+  },
+];
+
+const slas = [
+  { label: '99,5 %', desc: 'Uptime SLA (Professional)' },
+  { label: '< 4 h',  desc: 'Reaktionszeit Support' },
+  { label: '15 min', desc: 'Matching-Intervall' },
+  { label: 'SOC 2',  desc: 'Sicherheitsstandard (geplant)' },
+];
+---
+
+<BaseLayout
+  title="Partner-Programm — KiezPower für Stadtwerke, Netzbetreiber & Wohnungsunternehmen"
+  description="White-Label P2P-Energieplattform für Stadtwerke, Wohnungsunternehmen und Netzbetreiber. REST-API, eIDAS, § 42c EnWG. Ab 1.490 €/Monat."
+>
+  <Nav />
+  <main>
+
+    <!-- Hero -->
+    <section class="partner-hero">
+      <div class="container">
+        <span class="section-tag">Partner-Programm</span>
+        <h1>
+          Ihre Infrastruktur.<br />
+          <em>Unser Marktplatz.</em>
+        </h1>
+        <p class="hero-sub">
+          KiezPower als White-Label-Plattform für Stadtwerke, Wohnungsunternehmen und Netzbetreiber.
+          REST-API, eIDAS-Verträge, § 42c EnWG — alles dabei. Sie sind in Wochen live.
+        </p>
+        <div class="hero-actions">
+          <a href="#demo" class="btn-primary">Demo anfragen →</a>
+          <a href="#preise" class="btn-ghost">Preisübersicht</a>
+        </div>
+        <div class="sla-bar">
+          {slas.map((s) => (
+            <div class="sla-item">
+              <div class="sla-value">{s.label}</div>
+              <div class="sla-desc">{s.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="use-cases">
+      <div class="container">
+        <span class="section-tag reveal">Anwendungsfälle</span>
+        <h2 class="section-title reveal">Drei Partner. Ein Produkt.</h2>
+        <div class="uc-grid">
+          {useCases.map((uc) => (
+            <div class="uc-card reveal">
+              <div class="uc-top">
+                <span class="uc-icon">{uc.icon}</span>
+                <span class="uc-label">{uc.label}</span>
+              </div>
+              <h3>{uc.headline}</h3>
+              <p>{uc.desc}</p>
+              <ul class="uc-highlights">
+                {uc.highlights.map((h) => <li>{h}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature List -->
+    <section class="features-section">
+      <div class="container">
+        <span class="section-tag reveal">Was inklusive ist</span>
+        <h2 class="section-title reveal">Vollständige Plattform.<br />Keine Überraschungen.</h2>
+        <div class="features-grid">
+          {features.map((f) => (
+            <div class="feature-col reveal">
+              <h3>{f.category}</h3>
+              <ul>
+                {f.items.map((item) => (
+                  <li>
+                    <span class="check" aria-hidden="true">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing-section" id="preise">
+      <div class="container">
+        <span class="section-tag reveal">Preisübersicht</span>
+        <h2 class="section-title reveal">Transparent von Anfang an.</h2>
+        <p class="section-sub reveal">
+          Alle Pläne beinhalten die vollständige Plattform — kein Feature-Gating.
+          Wir wachsen mit Ihrem Erfolg.
+        </p>
+        <div class="pricing-grid">
+          {tiers.map((t) => (
+            <div class={`pricing-card reveal ${t.highlight ? 'highlight' : ''}`}>
+              {t.highlight && <div class="pricing-badge">Empfohlen</div>}
+              <div class="pricing-name">{t.name}</div>
+              <div class="pricing-price">{t.price}</div>
+              <div class="pricing-note">{t.priceNote}</div>
+              <p class="pricing-desc">{t.desc}</p>
+              <ul class="pricing-includes">
+                {t.includes.map((i) => <li><span aria-hidden="true">✓</span>{i}</li>)}
+              </ul>
+              <a href={t.ctaHref} class={t.highlight ? 'btn-primary' : 'btn-ghost'}>{t.cta}</a>
+            </div>
+          ))}
+        </div>
+        <p class="pricing-disclaimer">
+          Alle Preise zzgl. MwSt. Endkundengebühren (1,5 % Plattformgebühr) werden direkt mit Nutzern abgerechnet und sind nicht Bestandteil der Partner-Lizenz. Preise auf Anfrage für Jahresverträge.
+        </p>
+      </div>
+    </section>
+
+    <!-- Demo Form -->
+    <section class="demo-section" id="demo">
+      <div class="container">
+        <div class="demo-box reveal">
+          <span class="section-tag">Demo anfragen</span>
+          <h2>Überzeugen Sie sich selbst.</h2>
+          <p>Wir zeigen Ihnen die Plattform in 30 Minuten — live, mit echten Daten aus unserem Pilotbetrieb. Kein Pitch-Deck, keine Vorabkosten.</p>
+          <form class="demo-form" id="partner-demo-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="company">Organisation *</label>
+                <input type="text" id="company" name="company" placeholder="Stadtwerke Musterstadt GmbH" required />
+              </div>
+              <div class="form-group">
+                <label for="email">E-Mail *</label>
+                <input type="email" id="email" name="email" placeholder="vorname.nachname@stadtwerke.de" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="usecase">Anwendungsfall</label>
+              <select id="usecase" name="usecase">
+                <option value="">Bitte wählen (optional)</option>
+                <option value="stadtwerk">Stadtwerk — White-Label Marktplatz</option>
+                <option value="wohnungsunternehmen">Wohnungsunternehmen — Quartierslösung</option>
+                <option value="netzbetreiber">Netzbetreiber / DSO — Pilotprojekt Flexibilität</option>
+                <option value="genossenschaft">Energiegenossenschaft</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Nachricht</label>
+              <textarea id="message" name="message" rows="3" placeholder="Kurze Beschreibung Ihres Projekts oder Ihrer Fragen …"></textarea>
+            </div>
+            <button type="submit" class="btn-primary submit-btn">Demo anfragen →</button>
+            <p class="form-hint">Wir melden uns innerhalb von 24 Stunden. Kein Spam, keine Weitergabe.</p>
+          </form>
+          <div class="form-success" id="form-success" hidden>
+            <div class="success-icon">✓</div>
+            <h3>Anfrage erhalten.</h3>
+            <p>Wir melden uns innerhalb von 24 Stunden bei Ihnen.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</BaseLayout>
+
+<script>
+  import { createClient } from '@supabase/supabase-js';
+
+  const supabase = createClient(
+    import.meta.env.PUBLIC_SUPABASE_URL,
+    import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
+  );
+
+  const form    = document.getElementById('partner-demo-form') as HTMLFormElement;
+  const success = document.getElementById('form-success') as HTMLElement;
+  const btn     = form?.querySelector('.submit-btn') as HTMLButtonElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const company = (form.querySelector('#company') as HTMLInputElement).value.trim();
+    const email   = (form.querySelector('#email')   as HTMLInputElement).value.trim();
+    const usecase = (form.querySelector('#usecase') as HTMLSelectElement).value;
+    const message = (form.querySelector('#message') as HTMLTextAreaElement).value.trim();
+
+    if (!company || !email) return;
+
+    btn.disabled    = true;
+    btn.textContent = 'Wird gesendet …';
+
+    const { error } = await supabase
+      .from('demo_requests')
+      .insert({ company, email, message: [usecase, message].filter(Boolean).join(' | ') || null });
+
+    if (error) {
+      btn.disabled    = false;
+      btn.textContent = 'Demo anfragen →';
+      alert('Etwas ist schiefgelaufen. Bitte schreiben Sie uns direkt an info@kiez-power.de');
+      return;
+    }
+
+    form.hidden    = true;
+    success.hidden = false;
+  });
+</script>
+
+<style>
+  /* Hero */
+  .partner-hero {
+    padding: 8rem 2rem 4rem;
+    text-align: center;
+    background: var(--night);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .partner-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .partner-hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--green) 0%, #86efac 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 580px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 3.5rem;
+  }
+
+  /* SLA bar */
+  .sla-bar {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .sla-item {
+    flex: 1;
+    padding: 1.25rem 1rem;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .sla-item:last-child { border-right: none; }
+
+  .sla-value {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .sla-desc {
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  /* Use Cases */
+  .use-cases {
+    padding: 5rem 2rem;
+    background: var(--night);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .uc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .uc-card {
+    background: var(--night-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .uc-top {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .uc-icon { font-size: 1.5rem; }
+
+  .uc-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+
+  .uc-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .uc-card p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin: 0;
+    flex: 1;
+  }
+
+  .uc-highlights {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .uc-highlights li {
+    font-size: 0.78rem;
+    color: var(--muted);
+    padding-left: 1.1rem;
+    position: relative;
+  }
+
+  .uc-highlights li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-size: 0.72rem;
+  }
+
+  /* Features */
+  .features-section {
+    padding: 5rem 2rem;
+    background: var(--night-mid);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .feature-col {
+    background: var(--night);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+  }
+
+  .feature-col h3 {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 1.25rem;
+  }
+
+  .feature-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .feature-col li {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .check {
+    color: var(--green);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+  }
+
+  /* Pricing */
+  .pricing-section {
+    padding: 5rem 2rem 4rem;
+    background: var(--night);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+    align-items: start;
+  }
+
+  .pricing-card {
+    background: var(--night-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .pricing-card.highlight {
+    border-color: var(--green);
+    box-shadow: 0 0 32px rgba(34, 197, 94, 0.1);
+  }
+
+  .pricing-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--green);
+    color: var(--night);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.9rem;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .pricing-name {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .pricing-price {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-top: 0.25rem;
+  }
+
+  .pricing-card.highlight .pricing-price { color: var(--green); }
+
+  .pricing-note {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .pricing-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0 0 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pricing-includes {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    flex: 1;
+  }
+
+  .pricing-includes li {
+    display: flex;
+    gap: 0.6rem;
+    font-size: 0.825rem;
+    color: var(--muted);
+  }
+
+  .pricing-includes span {
+    color: var(--green);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .pricing-card a {
+    text-align: center;
+    display: block;
+  }
+
+  .pricing-disclaimer {
+    margin-top: 1.5rem;
+    font-size: 0.72rem;
+    color: var(--muted);
+    opacity: 0.55;
+    max-width: 680px;
+  }
+
+  /* Demo */
+  .demo-section {
+    padding: 5rem 2rem 6rem;
+    background: var(--night-mid);
+  }
+
+  .demo-box {
+    background: var(--night);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .demo-box h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0.75rem 0 0.75rem;
+  }
+
+  .demo-box > p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .demo-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-group label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: var(--night-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+    transition: border-color 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--green);
+  }
+
+  .form-group select option { background: var(--night-mid); }
+
+  .form-group textarea { resize: vertical; }
+
+  .submit-btn {
+    align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+
+  .form-hint {
+    font-size: 0.75rem;
+    color: var(--muted);
+    opacity: 0.6;
+    margin: 0;
+  }
+
+  /* Success */
+  .form-success {
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .success-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: var(--green);
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+  }
+
+  .form-success h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-success p {
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 640px) {
+    .sla-bar { flex-wrap: wrap; }
+    .sla-item { flex: 1 1 40%; border-bottom: 1px solid var(--border); }
+    .form-row { grid-template-columns: 1fr; }
+    .demo-box { padding: 2rem 1.5rem; }
+  }
+</style>
