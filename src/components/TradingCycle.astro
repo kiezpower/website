@@ -1,0 +1,587 @@
+---
+---
+
+<section class="cycle-section" id="handelszyklus">
+  <div class="container">
+    <span class="section-tag reveal">15-Minuten-Zyklus</span>
+    <h2 class="section-title reveal">Wie ein Handel entsteht</h2>
+    <p class="section-sub reveal">
+      Alle 15 Minuten durchläuft KiezPower vier Schritte — vollautomatisch,
+      während du schläfst oder arbeitest.
+    </p>
+
+    <div class="cycle-wrap reveal">
+
+      <!-- Phase tabs -->
+      <div class="phase-tabs" role="tablist" aria-label="Handelsphasen">
+        <button class="phase-tab active" data-phase="0" role="tab" aria-selected="true" type="button">
+          <span class="tab-num">01</span>
+          <span class="tab-label">Erzeugung</span>
+        </button>
+        <button class="phase-tab" data-phase="1" role="tab" aria-selected="false" type="button">
+          <span class="tab-num">02</span>
+          <span class="tab-label">Matching</span>
+        </button>
+        <button class="phase-tab" data-phase="2" role="tab" aria-selected="false" type="button">
+          <span class="tab-num">03</span>
+          <span class="tab-label">Handel</span>
+        </button>
+        <button class="phase-tab" data-phase="3" role="tab" aria-selected="false" type="button">
+          <span class="tab-num">04</span>
+          <span class="tab-label">Abrechnung</span>
+        </button>
+      </div>
+
+      <!-- Diagram + description -->
+      <div class="cycle-body">
+
+        <!-- SVG Diagram -->
+        <div class="diagram-wrap" aria-hidden="true">
+          <svg class="cycle-svg" viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- ═══ Timer ring (top center) ═══ -->
+            <g transform="translate(280,46)">
+              <circle r="26" fill="#0A1628" stroke="var(--border-col)" stroke-width="1.5"/>
+              <circle class="timer-ring" r="22" fill="none" stroke="#22C55E" stroke-width="3"
+                stroke-linecap="round" stroke-dasharray="138.2" stroke-dashoffset="138.2"
+                transform="rotate(-90)"/>
+              <text class="timer-text" y="5" text-anchor="middle"
+                fill="#22C55E" font-family="Space Grotesk,sans-serif" font-size="11" font-weight="700">15:00</text>
+            </g>
+            <text x="280" y="86" text-anchor="middle"
+              fill="#64748B" font-family="Inter,sans-serif" font-size="9">MIN-ZYKLUS</text>
+
+            <!-- ═══ Producer house (left) ═══ -->
+            <g class="node-producer" transform="translate(60,110)">
+              <!-- House body -->
+              <rect x="10" y="52" width="80" height="60" rx="4"
+                fill="#0F2040" stroke="#22C55E" stroke-width="1.5"/>
+              <!-- Roof -->
+              <polygon points="0,52 50,-2 100,52"
+                fill="#162B4F" stroke="#22C55E" stroke-width="1.5"/>
+              <!-- Solar panels -->
+              <g class="solar-panels">
+                <rect x="8"  y="24" width="20" height="10" rx="2" fill="#22C55E" opacity="0.6"/>
+                <rect x="31" y="20" width="20" height="10" rx="2" fill="#22C55E" opacity="0.8"/>
+                <rect x="54" y="24" width="20" height="10" rx="2" fill="#22C55E" opacity="0.6"/>
+              </g>
+              <!-- Sun rays (phase 0 only) -->
+              <g class="sun-glow" opacity="0">
+                <circle cx="50" cy="-18" r="10" fill="rgba(250,204,21,0.3)" />
+                <line x1="50" y1="-30" x2="50" y2="-36" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="62" y1="-26" x2="66" y2="-22" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="38" y1="-26" x2="34" y2="-22" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round"/>
+              </g>
+              <!-- Door -->
+              <rect x="35" y="84" width="30" height="28" rx="3"
+                fill="#162B4F" stroke="rgba(148,163,184,0.3)" stroke-width="1"/>
+              <!-- Window -->
+              <rect x="15" y="64" width="20" height="16" rx="2"
+                fill="#162B4F" stroke="rgba(34,197,94,0.3)" stroke-width="1"/>
+            </g>
+            <text x="110" y="198" text-anchor="middle"
+              fill="#94A3B8" font-family="Inter,sans-serif" font-size="11" font-weight="500">Produzent</text>
+            <!-- Surplus badge -->
+            <g class="surplus-badge" opacity="0">
+              <rect x="70" y="200" width="80" height="20" rx="10"
+                fill="rgba(34,197,94,0.15)" stroke="rgba(34,197,94,0.4)" stroke-width="1"/>
+              <text x="110" y="214" text-anchor="middle"
+                fill="#22C55E" font-family="Inter,sans-serif" font-size="9" font-weight="600">⚡ +3,2 kWh frei</text>
+            </g>
+
+            <!-- ═══ KiezPower hub (center) ═══ -->
+            <g class="node-hub" transform="translate(280,150)">
+              <circle class="hub-ring-outer" r="38" fill="none" stroke="rgba(34,197,94,0.15)" stroke-width="1"/>
+              <circle class="hub-ring-mid"   r="30" fill="none" stroke="rgba(34,197,94,0.2)"  stroke-width="1"/>
+              <circle r="22" fill="#0A1628" stroke="#22C55E" stroke-width="1.5"/>
+              <circle class="hub-pulse" r="22" fill="rgba(34,197,94,0.08)" opacity="0"/>
+              <text y="-3" text-anchor="middle"
+                fill="#22C55E" font-family="Space Grotesk,sans-serif" font-size="8" font-weight="700">KIEZ</text>
+              <text y="8" text-anchor="middle"
+                fill="#22C55E" font-family="Space Grotesk,sans-serif" font-size="8" font-weight="700">POWER</text>
+            </g>
+
+            <!-- ═══ Consumer house (right) ═══ -->
+            <g class="node-consumer" transform="translate(390,110)">
+              <rect x="10" y="52" width="80" height="60" rx="4"
+                fill="#0F2040" stroke="rgba(148,163,184,0.25)" stroke-width="1.5"/>
+              <polygon points="0,52 50,-2 100,52"
+                fill="#162B4F" stroke="rgba(148,163,184,0.25)" stroke-width="1.5"/>
+              <rect x="35" y="84" width="30" height="28" rx="3"
+                fill="#162B4F" stroke="rgba(148,163,184,0.3)" stroke-width="1"/>
+              <!-- Windows -->
+              <rect class="consumer-win-l" x="15" y="64" width="20" height="16" rx="2"
+                fill="rgba(245,158,11,0.08)" stroke="rgba(245,158,11,0.2)" stroke-width="1"/>
+              <rect class="consumer-win-r" x="65" y="64" width="20" height="16" rx="2"
+                fill="rgba(245,158,11,0.08)" stroke="rgba(245,158,11,0.2)" stroke-width="1"/>
+            </g>
+            <text x="440" y="198" text-anchor="middle"
+              fill="#94A3B8" font-family="Inter,sans-serif" font-size="11" font-weight="500">Konsument</text>
+            <!-- Saving badge -->
+            <g class="saving-badge" opacity="0">
+              <rect x="396" y="200" width="88" height="20" rx="10"
+                fill="rgba(245,158,11,0.12)" stroke="rgba(245,158,11,0.35)" stroke-width="1"/>
+              <text x="440" y="214" text-anchor="middle"
+                fill="#F59E0B" font-family="Inter,sans-serif" font-size="9" font-weight="600">🏠 Kiez-Strom aktiv</text>
+            </g>
+
+            <!-- ═══ Wallet (bottom center) ═══ -->
+            <g class="node-wallet" transform="translate(232,250)">
+              <rect width="96" height="34" rx="8"
+                fill="#0F2040" stroke="rgba(148,163,184,0.2)" stroke-width="1.5"/>
+              <text x="48" y="15" text-anchor="middle"
+                fill="#64748B" font-family="Inter,sans-serif" font-size="9">Wallet &amp; Vertrag</text>
+              <text class="wallet-amount" x="48" y="28" text-anchor="middle"
+                fill="#94A3B8" font-family="Space Grotesk,sans-serif" font-size="10" font-weight="600">– – –</text>
+            </g>
+
+            <!-- ═══ Connection lines (static) ═══ -->
+            <!-- Producer → Hub -->
+            <line x1="160" y1="150" x2="242" y2="150"
+              stroke="rgba(34,197,94,0.12)" stroke-width="2" stroke-dasharray="4 3"/>
+            <!-- Hub → Consumer -->
+            <line x1="318" y1="150" x2="390" y2="150"
+              stroke="rgba(34,197,94,0.12)" stroke-width="2" stroke-dasharray="4 3"/>
+            <!-- Hub → Wallet -->
+            <line x1="280" y1="172" x2="280" y2="250"
+              stroke="rgba(148,163,184,0.1)" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+            <!-- ═══ Energy particles (JS-controlled via CSS classes) ═══ -->
+            <!-- Phase 2 & 3: Producer → Hub -->
+            <circle class="particle particle-a" r="5" fill="#22C55E" opacity="0">
+              <animateMotion class="anim-ph" dur="1.4s" repeatCount="indefinite" begin="indefinite">
+                <mpath href="#path-ph"/>
+              </animateMotion>
+            </circle>
+            <path id="path-ph" d="M 160 150 L 242 150" fill="none"/>
+
+            <!-- Phase 3: Hub → Consumer -->
+            <circle class="particle particle-b" r="5" fill="#22C55E" opacity="0">
+              <animateMotion class="anim-hc" dur="1.4s" repeatCount="indefinite" begin="indefinite">
+                <mpath href="#path-hc"/>
+              </animateMotion>
+            </circle>
+            <path id="path-hc" d="M 318 150 L 390 150" fill="none"/>
+
+            <!-- Phase 4: Hub → Wallet -->
+            <circle class="particle particle-c" r="4" fill="#94A3B8" opacity="0">
+              <animateMotion class="anim-hw" dur="1s" repeatCount="indefinite" begin="indefinite">
+                <mpath href="#path-hw"/>
+              </animateMotion>
+            </circle>
+            <path id="path-hw" d="M 280 172 L 280 250" fill="none"/>
+
+          </svg>
+        </div>
+
+        <!-- Phase description panel -->
+        <div class="phase-desc">
+          <div class="phase-panel active" data-panel="0">
+            <div class="phase-icon">☀️</div>
+            <h3>PV-Anlage erzeugt Überschuss</h3>
+            <p>
+              Dein Smartmeter misst kontinuierlich: Wie viel Strom produziert deine PV-Anlage?
+              Wie viel verbrauchst du selbst? Der Überschuss — z.B. 3,2 kWh — wird automatisch
+              als Angebot an KiezPower gemeldet.
+            </p>
+            <div class="phase-detail">
+              <span class="detail-chip">15-Minuten-Intervall</span>
+              <span class="detail-chip">Smartmeter (MsbG)</span>
+              <span class="detail-chip">Automatisch</span>
+            </div>
+          </div>
+
+          <div class="phase-panel" data-panel="1">
+            <div class="phase-icon">🔄</div>
+            <h3>KiezPower matched Angebot & Nachfrage</h3>
+            <p>
+              Die Matching-Engine vergleicht alle Angebote (Produzenten) mit allen Anfragen
+              (Konsumenten) in deiner Community — nach Preis, Menge und Entfernung.
+              Der beste Match gewinnt. Das dauert Millisekunden.
+            </p>
+            <div class="phase-detail">
+              <span class="detail-chip">Preisoptimiert</span>
+              <span class="detail-chip">Lokal priorisiert</span>
+              <span class="detail-chip">&lt; 1 Sekunde</span>
+            </div>
+          </div>
+
+          <div class="phase-panel" data-panel="2">
+            <div class="phase-icon">⚡</div>
+            <h3>Strom fließt vom Produzenten zum Nachbarn</h3>
+            <p>
+              Physisch nutzt der Konsument den Strom über das normale Stromnetz —
+              der Netzbetreiber bleibt Transporteur. KiezPower erfasst nur,
+              <em>wer wieviel von wem</em> kauft und verbucht das entsprechend.
+            </p>
+            <div class="phase-detail">
+              <span class="detail-chip">Netz bleibt Netzbetreiber</span>
+              <span class="detail-chip">Nur Buchung bei KiezPower</span>
+            </div>
+          </div>
+
+          <div class="phase-panel" data-panel="3">
+            <div class="phase-icon">📄</div>
+            <h3>Vertrag & Zahlung — vollautomatisch</h3>
+            <p>
+              Jeder Handel wird mit einer eIDAS-konformen digitalen Signatur besiegelt
+              und im Wallet abgerechnet. Produzent erhält Gutschrift, Konsument wird
+              belastet. Kein Papierkram, kein manueller Schritt.
+            </p>
+            <div class="phase-detail">
+              <span class="detail-chip">eIDAS-Signatur</span>
+              <span class="detail-chip">Prepaid-Wallet</span>
+              <span class="detail-chip">Audit-Log</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Progress bar -->
+      <div class="cycle-progress" aria-hidden="true">
+        <div class="progress-track">
+          <div class="progress-fill" id="cycle-progress-fill"></div>
+        </div>
+        <span class="progress-label">Automatisch · alle 15 Minuten</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  const PHASE_DURATION = 4000; // ms per phase
+  const PHASES = 4;
+
+  let current = 0;
+  let timer: ReturnType<typeof setInterval> | null = null;
+  let paused = false;
+
+  const tabs     = document.querySelectorAll('.phase-tab');
+  const panels   = document.querySelectorAll('.phase-panel');
+  const fill     = document.getElementById('cycle-progress-fill') as HTMLElement;
+  const svg      = document.querySelector('.cycle-svg') as SVGSVGElement | null;
+
+  // SVG elements
+  const timerRing     = svg?.querySelector('.timer-ring') as SVGCircleElement;
+  const timerText     = svg?.querySelector('.timer-text') as SVGTextElement;
+  const sunGlow       = svg?.querySelector('.sun-glow') as SVGElement;
+  const surplusBadge  = svg?.querySelector('.surplus-badge') as SVGElement;
+  const hubPulse      = svg?.querySelector('.hub-pulse') as SVGElement;
+  const particleA     = svg?.querySelector('.particle-a') as SVGCircleElement;
+  const particleB     = svg?.querySelector('.particle-b') as SVGCircleElement;
+  const particleC     = svg?.querySelector('.particle-c') as SVGCircleElement;
+  const savingBadge   = svg?.querySelector('.saving-badge') as SVGElement;
+  const walletAmount  = svg?.querySelector('.wallet-amount') as SVGTextElement;
+  const consumerWinL  = svg?.querySelector('.consumer-win-l') as SVGRectElement;
+  const consumerWinR  = svg?.querySelector('.consumer-win-r') as SVGRectElement;
+  const animPH  = svg?.querySelector('.anim-ph') as SVGAnimateMotionElement;
+  const animHC  = svg?.querySelector('.anim-hc') as SVGAnimateMotionElement;
+  const animHW  = svg?.querySelector('.anim-hw') as SVGAnimateMotionElement;
+
+  const CIRCUMFERENCE = 2 * Math.PI * 22; // ~138.2
+
+  function setPhase(n: number) {
+    current = n;
+
+    // Tabs
+    tabs.forEach((t, i) => {
+      t.classList.toggle('active', i === n);
+      t.setAttribute('aria-selected', String(i === n));
+    });
+
+    // Panels
+    panels.forEach((p, i) => p.classList.toggle('active', i === n));
+
+    // Progress fill
+    fill.style.width = `${((n + 1) / PHASES) * 100}%`;
+
+    updateSVG(n);
+  }
+
+  function updateSVG(phase: number) {
+    if (!svg) return;
+
+    // Timer countdown text
+    const minutes = ['14:00', '09:00', '04:00', '00:05'];
+    if (timerText) timerText.textContent = minutes[phase];
+
+    // Timer ring progress
+    const dashOffset = CIRCUMFERENCE - (CIRCUMFERENCE * (phase + 1)) / PHASES;
+    if (timerRing) timerRing.style.strokeDashoffset = String(dashOffset);
+
+    // Phase 0 — Erzeugung
+    if (sunGlow)      sunGlow.setAttribute('opacity',      phase === 0 ? '1' : '0');
+    if (surplusBadge) surplusBadge.setAttribute('opacity', phase === 0 ? '1' : '0');
+
+    // Phase 1 — Matching: hub pulse
+    if (hubPulse) {
+      hubPulse.setAttribute('opacity', phase === 1 ? '1' : '0');
+      if (phase === 1) {
+        hubPulse.style.animation = 'hubPulse 1s ease-out infinite';
+      } else {
+        hubPulse.style.animation = 'none';
+      }
+    }
+
+    // Phase 2 — Handel: particles Producer→Hub
+    if (particleA) {
+      particleA.setAttribute('opacity', phase >= 2 ? '1' : '0');
+      if (phase >= 2 && animPH) animPH.beginElement();
+    }
+    if (particleB) {
+      particleB.setAttribute('opacity', phase === 2 ? '1' : '0');
+      if (phase === 2 && animHC) animHC.beginElement();
+    }
+
+    // Consumer windows light up on phase 2
+    if (consumerWinL) {
+      const lit = phase >= 2;
+      consumerWinL.setAttribute('fill', lit ? 'rgba(245,158,11,0.25)' : 'rgba(245,158,11,0.08)');
+      consumerWinL.setAttribute('stroke', lit ? 'rgba(245,158,11,0.6)' : 'rgba(245,158,11,0.2)');
+      consumerWinR?.setAttribute('fill', lit ? 'rgba(245,158,11,0.25)' : 'rgba(245,158,11,0.08)');
+      consumerWinR?.setAttribute('stroke', lit ? 'rgba(245,158,11,0.6)' : 'rgba(245,158,11,0.2)');
+    }
+    if (savingBadge) savingBadge.setAttribute('opacity', phase >= 2 ? '1' : '0');
+
+    // Phase 3 — Abrechnung: wallet particle + amount
+    if (particleC) {
+      particleC.setAttribute('opacity', phase === 3 ? '1' : '0');
+      if (phase === 3 && animHW) animHW.beginElement();
+    }
+    if (walletAmount) {
+      walletAmount.textContent = phase === 3 ? '+2,28 € / −2,28 €' : '– – –';
+      walletAmount.setAttribute('fill', phase === 3 ? '#22C55E' : '#94A3B8');
+    }
+  }
+
+  function advance() {
+    if (!paused) setPhase((current + 1) % PHASES);
+  }
+
+  function startTimer() {
+    timer = setInterval(advance, PHASE_DURATION);
+  }
+
+  // Tab clicks
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      paused = true;
+      if (timer) clearInterval(timer);
+      setPhase(Number((tab as HTMLElement).dataset.phase));
+      // Resume auto-advance after 8s idle
+      setTimeout(() => {
+        paused = false;
+        startTimer();
+      }, 8000);
+    });
+  });
+
+  // Init
+  setPhase(0);
+  startTimer();
+</script>
+
+<style>
+  .cycle-section {
+    padding: 6rem 2rem;
+    background: var(--night);
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Layout ── */
+  .cycle-wrap {
+    margin-top: 3rem;
+    background: var(--night-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .cycle-body {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 0;
+    min-height: 340px;
+  }
+
+  /* ── Phase tabs ── */
+  .phase-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .phase-tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 1rem 0.5rem;
+    background: transparent;
+    border: none;
+    border-right: 1px solid var(--border);
+    color: var(--muted);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    font-family: var(--font-body);
+  }
+
+  .phase-tab:last-child { border-right: none; }
+  .phase-tab:hover { background: rgba(255,255,255,0.03); color: var(--white); }
+
+  .phase-tab.active {
+    background: rgba(34,197,94,0.07);
+    color: var(--white);
+    box-shadow: inset 0 -2px 0 var(--green);
+  }
+
+  .tab-num {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--green);
+    opacity: 0.7;
+  }
+
+  .phase-tab.active .tab-num { opacity: 1; }
+
+  .tab-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+  }
+
+  /* ── SVG diagram ── */
+  .diagram-wrap {
+    padding: 1.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .cycle-svg {
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+  }
+
+  /* ── Description panel ── */
+  .phase-desc {
+    padding: 2rem;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .phase-panel {
+    display: none;
+    flex-direction: column;
+    gap: 0.75rem;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .phase-panel.active { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .phase-icon {
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .phase-panel h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .phase-panel p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .phase-panel em { color: var(--white); font-style: normal; }
+
+  .phase-detail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.25rem;
+  }
+
+  .detail-chip {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    background: rgba(34,197,94,0.1);
+    color: var(--green);
+    border: 1px solid rgba(34,197,94,0.2);
+  }
+
+  /* ── Progress bar ── */
+  .cycle-progress {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .progress-track {
+    flex: 1;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--green);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 25%;
+  }
+
+  .progress-label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ── SVG Animations ── */
+  @keyframes hubPulse {
+    0%   { r: 22; opacity: 0.5; }
+    100% { r: 38; opacity: 0; }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 860px) {
+    .cycle-body {
+      grid-template-columns: 1fr;
+    }
+    .diagram-wrap {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem;
+    }
+    .cycle-svg { max-width: 420px; }
+  }
+
+  @media (max-width: 560px) {
+    .phase-tabs { flex-wrap: wrap; }
+    .phase-tab  { flex: 1 1 40%; border-bottom: 1px solid var(--border); }
+    .tab-label  { display: none; }
+  }
+</style>
