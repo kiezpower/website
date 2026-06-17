@@ -1,0 +1,346 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const cases = [
+  {
+    status: 'coming-soon',
+    label: 'Pilot läuft',
+    partner: 'Stadtwerk / Wohnungsunternehmen',
+    region: 'Deutschland',
+    teaser: 'Unser erster B2B-Pilot startet in Kürze. Sobald die ersten Ergebnisse vorliegen, veröffentlichen wir hier die vollständige Case Study.',
+    problem: 'Mieter mit PV-Anlage auf dem Dach konnten ihren Überschussstrom bisher nur zu niedrigen Einspeisevergütungen verkaufen. Nachbarn im selben Gebäude zahlten gleichzeitig volle Grundversorger-Preise.',
+    solution: 'KiezPower wurde als IT-Service-Provider gemäß § 42c EnWG in die bestehende Infrastruktur des Partners integriert. Mieter handeln Strom direkt untereinander — vollautomatisch, eIDAS-konform und ohne zusätzlichen Aufwand für den Partner.',
+    results: [
+      { metric: 'Angestrebte Einsparung Konsumenten', value: '–30 %' },
+      { metric: 'Angestrebter Mehrlös Produzenten', value: '+80 %' },
+      { metric: 'Integrationsaufwand', value: '< 4 Wochen' },
+    ],
+    quote: null,
+  },
+];
+---
+
+<BaseLayout
+  title="Referenzen & Case Studies — KiezPower"
+  description="Praxisbeispiele: Wie Stadtwerke, Wohnungsunternehmen und Energiegenossenschaften mit KiezPower lokalen P2P-Stromhandel einführen."
+>
+  <Nav />
+  <main>
+
+    <section class="ref-hero">
+      <div class="container">
+        <span class="section-tag">Referenzen</span>
+        <h1>Aus der Praxis.<br /><em>Für die Praxis.</em></h1>
+        <p class="hero-sub">
+          Wie Stadtwerke, Wohnungsunternehmen und Energiegenossenschaften
+          mit KiezPower lokalen P2P-Stromhandel einführen — ohne Versorgerstatus.
+        </p>
+      </div>
+    </section>
+
+    <section class="cases">
+      <div class="container">
+        {cases.map((c) => (
+          <article class={`case-card ${c.status}`}>
+
+            <header class="case-header">
+              <div class="case-meta">
+                <span class={`status-badge ${c.status}`}>{c.label}</span>
+                <span class="case-partner">{c.partner}</span>
+                <span class="case-region">📍 {c.region}</span>
+              </div>
+              <p class="case-teaser">{c.teaser}</p>
+            </header>
+
+            <div class="case-body">
+
+              <div class="case-section">
+                <h3><span class="step-num">01</span> Problem</h3>
+                <p>{c.problem}</p>
+              </div>
+
+              <div class="case-section">
+                <h3><span class="step-num">02</span> Lösung</h3>
+                <p>{c.solution}</p>
+              </div>
+
+              <div class="case-section">
+                <h3><span class="step-num">03</span> Ergebnis</h3>
+                <div class="results-grid">
+                  {c.results.map((r) => (
+                    <div class="result-item">
+                      <div class="result-value">{r.value}</div>
+                      <div class="result-label">{r.metric}</div>
+                    </div>
+                  ))}
+                </div>
+                {c.status === 'coming-soon' && (
+                  <p class="results-note">
+                    * Zielwerte aus Pilotplanung. Verifizierte Ergebnisse folgen nach Pilotabschluss.
+                  </p>
+                )}
+              </div>
+
+              {c.quote && (
+                <blockquote class="case-quote">
+                  <p>"{c.quote.text}"</p>
+                  <cite>— {c.quote.author}, {c.quote.role}</cite>
+                </blockquote>
+              )}
+
+            </div>
+
+          </article>
+        ))}
+
+        <div class="cta-box reveal">
+          <span class="section-tag">Ihr Pilot</span>
+          <h2>Werden Sie unser nächster Referenzkunde.</h2>
+          <p>
+            Wir suchen Stadtwerke, Wohnungsunternehmen und Energiegenossenschaften
+            für gemeinsame Pilotprojekte. Keine Vorabkosten — wir wachsen mit Ihrem Erfolg.
+          </p>
+          <a href="/fuer-netzbetreiber#demo" class="btn-primary">Demo anfragen →</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .ref-hero {
+    padding: 8rem 2rem 4rem;
+    text-align: center;
+    background: var(--night);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ref-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .ref-hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--green) 0%, #86efac 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* Cases */
+  .cases {
+    padding: 5rem 2rem 6rem;
+    background: var(--night);
+  }
+
+  .case-card {
+    background: var(--night-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 2.5rem;
+  }
+
+  .case-card.coming-soon {
+    border-color: rgba(34, 197, 94, 0.25);
+  }
+
+  /* Header */
+  .case-header {
+    padding: 2rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(34, 197, 94, 0.04);
+  }
+
+  .case-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .status-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+  }
+
+  .status-badge.coming-soon {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--green);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+  }
+
+  .case-partner {
+    font-weight: 600;
+    color: var(--white);
+    font-size: 0.9rem;
+  }
+
+  .case-region {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .case-teaser {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Body */
+  .case-body {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .case-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+
+  .step-num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--green);
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+    border-radius: 4px;
+    padding: 0.15rem 0.5rem;
+  }
+
+  .case-section p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* Results grid */
+  .results-grid {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+
+  .result-item {
+    flex: 1;
+    min-width: 140px;
+    background: var(--night);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    text-align: center;
+  }
+
+  .result-value {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .result-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .results-note {
+    margin-top: 0.75rem !important;
+    font-size: 0.72rem !important;
+    opacity: 0.55;
+  }
+
+  /* Quote */
+  .case-quote {
+    border-left: 3px solid var(--green);
+    padding: 1rem 1.5rem;
+    margin: 0;
+    background: rgba(34, 197, 94, 0.04);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .case-quote p {
+    font-size: 1rem;
+    color: var(--white);
+    font-style: italic;
+    margin-bottom: 0.5rem;
+  }
+
+  .case-quote cite {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-style: normal;
+  }
+
+  /* CTA box */
+  .cta-box {
+    background: var(--night-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .cta-box h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0.75rem 0 1rem;
+  }
+
+  .cta-box p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto 2rem;
+  }
+
+  @media (max-width: 640px) {
+    .case-header,
+    .case-body { padding: 1.5rem; }
+
+    .results-grid { flex-direction: column; }
+
+    .cta-box { padding: 2rem 1.5rem; }
+  }
+</style>
