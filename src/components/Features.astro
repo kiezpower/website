@@ -79,12 +79,14 @@ const features = [
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: 2rem;
-    transition: border-color 0.2s, transform 0.2s;
+    transition: border-color 200ms ease-out, transform 200ms var(--ease-out);
   }
 
-  .feature-card:hover {
-    border-color: rgba(34, 197, 94, 0.3);
-    transform: translateY(-3px);
+  @media (hover: hover) and (pointer: fine) {
+    .feature-card:hover {
+      border-color: rgba(34, 197, 94, 0.3);
+      transform: translateY(-3px);
+    }
   }
 
   .feature-icon {

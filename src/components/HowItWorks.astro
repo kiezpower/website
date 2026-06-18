@@ -68,10 +68,12 @@ const steps = [
   .how-card {
     background: var(--night-mid);
     padding: 2.2rem;
-    transition: background 0.2s;
+    transition: background 200ms ease-out;
   }
 
-  .how-card:hover { background: var(--night-light); }
+  @media (hover: hover) and (pointer: fine) {
+    .how-card:hover { background: var(--night-light); }
+  }
 
   .how-step {
     font-family: var(--font-display);
