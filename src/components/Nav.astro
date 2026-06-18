@@ -68,9 +68,11 @@ const links = [
   .nav-links a {
     color: var(--muted); text-decoration: none;
     font-size: 0.875rem; font-weight: 500;
-    transition: color 0.2s;
+    transition: color 200ms ease-out;
   }
-  .nav-links a:hover { color: var(--white); }
+  @media (hover: hover) and (pointer: fine) {
+    .nav-links a:hover { color: var(--white); }
+  }
 
   .nav-cta {
     background: var(--green) !important;
@@ -78,11 +80,16 @@ const links = [
     padding: 0.5rem 1.25rem;
     border-radius: var(--radius-sm);
     font-weight: 600 !important;
-    transition: background 0.2s, transform 0.15s !important;
+    transition: background 200ms ease-out, transform 160ms ease-out !important;
   }
-  .nav-cta:hover {
-    background: var(--green-dim) !important;
-    transform: translateY(-1px);
+  @media (hover: hover) and (pointer: fine) {
+    .nav-cta:hover {
+      background: var(--green-dim) !important;
+      transform: translateY(-1px);
+    }
+  }
+  .nav-cta:active {
+    transform: scale(0.96) !important;
   }
 
   /* Hamburger */
@@ -90,11 +97,13 @@ const links = [
     display: none;
     flex-direction: column; gap: 5px;
     background: none; border: none; cursor: pointer; padding: 4px;
+    transition: transform 160ms ease-out;
   }
+  .nav-hamburger:active { transform: scale(0.93); }
   .nav-hamburger span {
     display: block; width: 22px; height: 2px;
     background: var(--white); border-radius: 2px;
-    transition: transform 0.2s, opacity 0.2s;
+    transition: transform 200ms var(--ease-out), opacity 200ms ease-out;
   }
   .nav-hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .nav-hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
