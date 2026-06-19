@@ -1,0 +1,125 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout
+  title="Blog — KiezPower | P2P-Stromhandel erklärt"
+  description="Alles über P2P-Stromhandel, § 42c EnWG, Einspeisevergütung und Energiegemeinschaften — verständlich erklärt."
+>
+  <Nav />
+  <main class="blog-index">
+    <div class="container">
+      <span class="section-tag">Blog</span>
+      <h1>Wissen rund um P2P-Stromhandel</h1>
+      <p class="intro">
+        Hintergründe zu § 42c EnWG, Einspeisevergütung, Energiegemeinschaften und lokalem Stromhandel —
+        für Produzenten, Konsumenten und B2B-Partner.
+      </p>
+
+      <div class="post-grid">
+        {posts.map((post) => {
+          const wordCount = post.body?.split(/\s+/).length ?? 500;
+          const readingTime = Math.ceil(wordCount / 200);
+          return (
+            <a href={`/blog/${post.id}/`} class="post-card">
+              <span class="post-tag">Blog</span>
+              <h2>{post.data.title}</h2>
+              <p class="post-desc">{post.data.description}</p>
+              <p class="post-meta">
+                {post.data.pubDate.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })}
+                {' · '}{readingTime} Min.
+              </p>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .blog-index {
+    padding: 8rem 0 5rem;
+    min-height: 70vh;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+
+  .intro {
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .post-card {
+    display: block;
+    background: var(--night-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .post-card:hover {
+      border-color: rgba(34, 197, 94, 0.35);
+      transform: translateY(-2px);
+    }
+  }
+
+  .post-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .post-card h2 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.35;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .post-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+  }
+
+  .post-meta {
+    font-size: 0.75rem;
+    color: var(--muted);
+    opacity: 0.6;
+  }
+</style>
