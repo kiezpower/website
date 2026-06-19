@@ -1,0 +1,180 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Calculator from '../components/Calculator.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Vorteilsrechner — KiezPower | Strom an Nachbarn verkaufen"
+  description="Berechne deinen persönlichen Vorteil mit KiezPower: Wie viel mehr verdient deine PV-Anlage gegenüber der Einspeisevergütung? Wie viel sparst du als Konsument gegenüber dem Grundversorger?"
+>
+  <Nav />
+  <main class="rechner-page">
+    <div class="container">
+      <span class="section-tag">Vorteilsrechner</span>
+      <h1 class="reveal">Was bringt dir KiezPower?</h1>
+      <p class="page-sub reveal">
+        Berechne in Sekunden deinen persönlichen Vorteil — ob du Solarstrom produzierst oder günstigen Strom suchst.
+      </p>
+    </div>
+
+    <Calculator />
+
+    <!-- FAQ -->
+    <div class="container">
+      <div class="faq-section">
+        <h2 class="faq-title">Häufige Fragen zum Rechner</h2>
+
+        <details class="faq-item">
+          <summary>Wie wird der Kiez-Preis berechnet?</summary>
+          <p>
+            Der Kiez-Preis ist kein fixer Tarif, sondern ein frei vereinbarter Energiepreis zwischen Produzent und Konsument.
+            Produzenten setzen ihren Mindestpreis, Konsumenten ihr Preislimit — KiezPower matched automatisch.
+            Die im Rechner verwendeten Werte (15 ct/kWh für Produzenten, 20 ct/kWh für Konsumenten) sind realistische Mittelwerte
+            aus Pilotdaten. Der tatsächliche Preis kann höher oder niedriger liegen.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Was kostet KiezPower?</summary>
+          <p>
+            KiezPower erhebt eine Plattformgebühr von <strong>1,5 %</strong> auf den gehandelten Energiepreis.
+            Netzentgelte, Steuern und staatliche Abgaben (~60 % des Endpreises) werden vom Netzbetreiber
+            separat in Rechnung gestellt — diese fallen unabhängig vom Energielieferanten an und sind im
+            Rechner nicht enthalten.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Ab wann kann ich KiezPower nutzen?</summary>
+          <p>
+            KiezPower befindet sich im Aufbau. Wir starten mit einem regionalen Pilotbetrieb in Deutschland.
+            Trag dich auf die <a href="/#warteliste">Warteliste</a> ein, um als Erste*r informiert zu werden,
+            sobald wir in deine Region kommen. Dein Platz auf der Liste reserviert deinen frühen Zugang.
+          </p>
+        </details>
+      </div>
+
+      <div class="bottom-cta">
+        <p>Überzeugend? Sichere dir jetzt deinen Platz.</p>
+        <a href="/#warteliste" class="btn-primary">Zur Warteliste →</a>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .rechner-page {
+    padding-top: 7rem;
+    padding-bottom: 5rem;
+  }
+
+  .rechner-page > .container:first-child {
+    padding-bottom: 0;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+
+  .page-sub {
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 520px;
+    margin-bottom: 0;
+  }
+
+  /* FAQ */
+  .faq-section {
+    margin-top: 4rem;
+    max-width: 780px;
+  }
+
+  .faq-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  .faq-item {
+    background: var(--night-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .faq-item:hover { border-color: rgba(148, 163, 184, 0.25); }
+  .faq-item[open] { border-color: rgba(34, 197, 94, 0.25); }
+
+  summary {
+    padding: 1.1rem 1.5rem;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--white);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    user-select: none;
+  }
+
+  summary::-webkit-details-marker { display: none; }
+
+  summary::after {
+    content: '+';
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--green);
+    flex-shrink: 0;
+    transition: transform 0.25s;
+    line-height: 1;
+  }
+
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+
+  .faq-item p {
+    padding: 0 1.5rem 1.25rem;
+    color: var(--muted);
+    line-height: 1.75;
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+
+  .faq-item p a {
+    color: var(--green);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .faq-item p strong { color: var(--white); }
+
+  /* Bottom CTA */
+  .bottom-cta {
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .bottom-cta p {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+</style>
