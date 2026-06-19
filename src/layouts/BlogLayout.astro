@@ -1,0 +1,212 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title:       string;
+  description: string;
+  pubDate:     Date;
+  keywords:    string[];
+  readingTime: number;
+}
+
+const { title, description, pubDate, keywords, readingTime } = Astro.props;
+
+const formattedDate = pubDate.toLocaleDateString('de-DE', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+
+const siteUrl = 'https://kiez-power.de';
+const articleSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  author: { '@type': 'Organization', name: 'KiezPower', url: siteUrl },
+  publisher: { '@type': 'Organization', name: 'KiezPower', url: siteUrl },
+});
+---
+
+<BaseLayout title={`${title} — KiezPower`} description={description}>
+  <Fragment slot="head">
+    <meta name="keywords" content={keywords.join(', ')} />
+    <script type="application/ld+json" set:html={articleSchema} />
+  </Fragment>
+  <Nav />
+  <main class="blog-article">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">KiezPower</a>
+        <span>›</span>
+        <a href="/blog/">Blog</a>
+        <span>›</span>
+        <span>{title}</span>
+      </nav>
+
+      <header class="article-header">
+        <span class="section-tag">Blog</span>
+        <h1>{title}</h1>
+        <p class="article-meta">{formattedDate} · {readingTime} Min. Lesezeit</p>
+      </header>
+
+      <article class="prose">
+        <slot />
+      </article>
+
+      <div class="article-cta">
+        <p class="cta-headline">Bereit für Strom aus der Nachbarschaft?</p>
+        <p class="cta-sub">Sichere dir jetzt deinen Platz auf der Warteliste — kostenlos und unverbindlich.</p>
+        <a href="/#warteliste" class="btn-primary">Jetzt Platz sichern →</a>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .blog-article {
+    padding: 7rem 2rem 5rem;
+    min-height: 70vh;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .breadcrumb a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .breadcrumb a:hover { color: var(--green); }
+  .breadcrumb span:not(a) { opacity: 0.5; }
+
+  .article-header {
+    max-width: 720px;
+    margin-bottom: 3rem;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+
+  .article-meta {
+    font-size: 0.825rem;
+    color: var(--muted);
+    opacity: 0.7;
+  }
+
+  /* Prose */
+  .prose {
+    max-width: 720px;
+    color: var(--muted);
+    line-height: 1.85;
+    font-size: 1rem;
+  }
+
+  .prose :global(h2) {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin: 2.5rem 0 1rem;
+  }
+
+  .prose :global(h3) {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--white);
+    margin: 2rem 0 0.75rem;
+  }
+
+  .prose :global(p) { margin-bottom: 1.25rem; }
+
+  .prose :global(a) {
+    color: var(--green);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .prose :global(strong) { color: var(--white); font-weight: 600; }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .prose :global(li) { margin-bottom: 0.4rem; }
+
+  .prose :global(blockquote) {
+    border-left: 3px solid var(--green);
+    padding: 0.75rem 1.25rem;
+    margin: 1.5rem 0;
+    background: var(--night-mid);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    color: var(--white);
+    font-style: italic;
+  }
+
+  .prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+
+  .prose :global(th),
+  .prose :global(td) {
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--border);
+    text-align: left;
+  }
+
+  .prose :global(th) {
+    background: var(--night-mid);
+    color: var(--white);
+    font-family: var(--font-display);
+    font-weight: 600;
+  }
+
+  /* CTA */
+  .article-cta {
+    max-width: 720px;
+    margin-top: 4rem;
+    padding: 2.5rem;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: var(--radius-lg);
+    background: rgba(34, 197, 94, 0.05);
+    text-align: center;
+  }
+
+  .cta-headline {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .cta-sub {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+</style>
