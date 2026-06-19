@@ -29,7 +29,12 @@ const articleSchema = JSON.stringify({
 });
 ---
 
-<BaseLayout title={`${title} — KiezPower`} description={description}>
+<BaseLayout
+  title={`${title} — KiezPower`}
+  description={description}
+  ogType="article"
+  ogArticlePublishedTime={pubDate.toISOString()}
+>
   <Fragment slot="head">
     <meta name="keywords" content={keywords.join(', ')} />
     <script type="application/ld+json" set:html={articleSchema} />

@@ -2,15 +2,19 @@
 import '../styles/global.css';
 
 interface Props {
-  title?:       string;
-  description?: string;
-  ogImage?:     string;
+  title?:                  string;
+  description?:            string;
+  ogImage?:                string;
+  ogType?:                 string;
+  ogArticlePublishedTime?: string;
 }
 
 const {
   title       = 'KiezPower — Strom von Nachbar zu Nachbar',
   description = 'KiezPower ermöglicht automatisierten Peer-to-Peer Stromhandel zwischen Nachbarn. Produzenten verkaufen Solarstrom direkt an Konsumenten in der Nachbarschaft — für mindestens 13 ct/kWh, vollautomatisch und DSGVO-konform.',
   ogImage     = '/web-app-manifest-512x512.png',
+  ogType      = 'website',
+  ogArticlePublishedTime,
 } = Astro.props;
 
 const siteUrl     = 'https://kiez-power.de';
@@ -35,7 +39,9 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
     <meta name="theme-color"  content="#0A1628" />
 
     <!-- ── Open Graph (Facebook, LinkedIn, WhatsApp) ── -->
-    <meta property="og:type"        content="website" />
+    <meta property="og:type"        content={ogType} />
+    {ogArticlePublishedTime && <meta property="article:published_time" content={ogArticlePublishedTime} />}
+    {ogArticlePublishedTime && <meta property="article:author" content="KiezPower" />}
     <meta property="og:url"         content={canonicalURL} />
     <meta property="og:title"       content={title} />
     <meta property="og:description" content={description} />
