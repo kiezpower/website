@@ -1,7 +1,8 @@
 ---
 const plans = [
   {
-    role: '☀️ Produzent',
+    role: 'Produzent',
+    roleAccent: 'amber',
     amount: '1,5 %',
     unit: 'Plattformgebühr',
     note: 'Energiepreis wird direkt mit dem Käufer vereinbart',
@@ -15,7 +16,8 @@ const plans = [
     ],
   },
   {
-    role: '🏠 Konsument',
+    role: 'Konsument',
+    roleAccent: 'green',
     amount: '1,5 %',
     unit: 'Plattformgebühr',
     note: 'Energiepreis wird direkt mit dem Produzenten vereinbart',
@@ -50,9 +52,9 @@ const compliance = [
 
     <div class="pricing-grid reveal">
       {plans.map((plan) => (
-        <div class:list={['price-card', { featured: plan.featured }]}>
+        <div class:list={['price-card', { featured: plan.featured, amber: plan.roleAccent === 'amber' }]}>
           {plan.featured && <div class="price-badge">Empfohlen</div>}
-          <div class="price-role">{plan.role}</div>
+          <div class:list={['price-role', `accent-${plan.roleAccent}`]}>{plan.role}</div>
           <div class="price-amount">
             {plan.amount} <span>{plan.unit}</span>
           </div>
@@ -104,6 +106,13 @@ const compliance = [
     box-shadow: 0 0 40px rgba(34, 197, 94, 0.15);
   }
 
+  .price-card.amber {
+    border-color: rgba(245, 158, 11, 0.35);
+  }
+
+  .price-role.accent-amber { color: var(--amber); }
+  .price-role.accent-green  { color: var(--green); }
+
   .price-badge {
     position: absolute;
     top: -12px; left: 50%;
@@ -126,6 +135,7 @@ const compliance = [
     text-transform: uppercase;
     color: var(--muted);
     margin-bottom: 1rem;
+    transition: color 200ms ease-out;
   }
 
   .price-amount {

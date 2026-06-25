@@ -6,6 +6,11 @@ const links = [
   { href: '/rechner/',            label: 'Rechner' },
   { href: '/blog/',               label: 'Blog' },
 ];
+
+const partnerLinks = [
+  { href: '/fuer-netzbetreiber', label: 'Für Netzbetreiber' },
+  { href: '/partner',            label: 'Partner-Programm' },
+];
 ---
 
 <nav>
@@ -16,6 +21,17 @@ const links = [
 
   <div class="nav-links">
     {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+        Partner
+        <svg class="dropdown-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="nav-dropdown-menu" role="menu">
+        {partnerLinks.map((l) => (
+          <a href={l.href} role="menuitem">{l.label}</a>
+        ))}
+      </div>
+    </div>
     <a href="/#warteliste" class="nav-cta">Platz sichern →</a>
   </div>
 
@@ -133,6 +149,79 @@ const links = [
     color: var(--green) !important;
     font-weight: 600 !important;
     border-bottom: none !important;
+  }
+
+  /* Partner dropdown */
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown-trigger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0;
+    transition: color 200ms ease-out;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .nav-dropdown-trigger:hover { color: var(--white); }
+  }
+
+  .dropdown-chevron {
+    transition: transform 200ms var(--ease-out);
+  }
+
+  .nav-dropdown:hover .dropdown-chevron,
+  .nav-dropdown:focus-within .dropdown-chevron {
+    transform: rotate(180deg);
+  }
+
+  .nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(10, 22, 40, 0.97);
+    backdrop-filter: blur(18px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(-4px);
+    transition: opacity 150ms ease-out, transform 150ms var(--ease-out);
+  }
+
+  .nav-dropdown:hover .nav-dropdown-menu,
+  .nav-dropdown:focus-within .nav-dropdown-menu {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .nav-dropdown-menu a {
+    color: var(--muted) !important;
+    font-size: 0.85rem !important;
+    padding: 0.6rem 0.9rem;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    transition: color 150ms ease-out, background 150ms ease-out;
+  }
+
+  .nav-dropdown-menu a:hover {
+    color: var(--white) !important;
+    background: rgba(255, 255, 255, 0.05);
   }
 
   @media (max-width: 768px) {

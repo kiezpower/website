@@ -1,4 +1,12 @@
 ---
+const svg = (paths: string, size = 20) =>
+  `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`;
+
+const boltIcon  = svg('<path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/>');
+const pinIcon   = svg('<path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>');
+const checkIcon = svg('<path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>');
+const homeIcon  = svg('<path d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/>');
+const sunIcon   = svg('<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/>');
 ---
 
 <section class="waitlist" id="warteliste">
@@ -18,21 +26,21 @@
 
         <div class="waitlist-perks">
           <div class="perk">
-            <span class="perk-icon">⚡</span>
+            <span class="perk-icon" set:html={boltIcon} />
             <div>
               <strong>Früher Zugang</strong>
               <p>Wartelisten-Mitglieder erhalten bevorzugten Zugang beim Launch.</p>
             </div>
           </div>
           <div class="perk">
-            <span class="perk-icon">📍</span>
+            <span class="perk-icon" set:html={pinIcon} />
             <div>
               <strong>PLZ-basiertes Rollout</strong>
               <p>Wir starten dort, wo die Nachfrage am größten ist.</p>
             </div>
           </div>
           <div class="perk">
-            <span class="perk-icon">🔒</span>
+            <span class="perk-icon" set:html={checkIcon} />
             <div>
               <strong>Kein Spam</strong>
               <p>Nur eine E-Mail wenn's losgeht. Versprochen.</p>
@@ -84,15 +92,15 @@
               <label class="role-option">
                 <input type="radio" name="role" value="Konsument" checked />
                 <span class="role-btn">
-                  <span class="role-icon">🏠</span>
+                  <span class="role-icon" set:html={homeIcon} />
                   <span class="role-label">Konsument</span>
                   <span class="role-sub">Günstig Strom kaufen</span>
                 </span>
               </label>
-              <label class="role-option">
+              <label class="role-option role-produzent">
                 <input type="radio" name="role" value="Produzent" />
                 <span class="role-btn">
-                  <span class="role-icon">☀️</span>
+                  <span class="role-icon" set:html={sunIcon} />
                   <span class="role-label">Produzent</span>
                   <span class="role-sub">PV-Anlage vorhanden</span>
                 </span>
@@ -100,7 +108,7 @@
               <label class="role-option">
                 <input type="radio" name="role" value="Beides" />
                 <span class="role-btn">
-                  <span class="role-icon">⚡</span>
+                  <span class="role-icon" set:html={boltIcon} />
                   <span class="role-label">Beides</span>
                   <span class="role-sub">Produzent & Konsument</span>
                 </span>
@@ -152,7 +160,13 @@
   }
 
   .perk { display: flex; align-items: flex-start; gap: 1rem; }
-  .perk-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+  .perk-icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--green);
+    display: flex;
+    align-items: center;
+  }
   .perk strong {
     display: block;
     font-family: var(--font-display);
@@ -235,7 +249,23 @@
   @media (hover: hover) and (pointer: fine) {
     .role-option:hover .role-btn { border-color: rgba(34, 197, 94, 0.4); }
   }
-  .role-icon { font-size: 1.2rem; }
+  .role-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    transition: color 150ms ease-out;
+  }
+
+  .role-option input:checked + .role-btn .role-icon { color: var(--green); }
+
+  /* Produzent gets amber when selected */
+  .role-produzent input:checked + .role-btn {
+    border-color: var(--amber);
+    background: var(--amber-dim);
+  }
+
+  .role-produzent input:checked + .role-btn .role-icon { color: var(--amber); }
   .role-label { font-family: var(--font-display); font-size: 0.75rem; font-weight: 600; }
   .role-sub { font-size: 0.65rem; color: var(--muted); line-height: 1.3; }
 
