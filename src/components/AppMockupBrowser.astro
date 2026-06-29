@@ -1,17 +1,173 @@
 ---
-import AppMockupBrowser from './AppMockupBrowser.astro';
 ---
 
 <section class="app-mockup-section">
-  <div class="container">
-    <span class="section-tag reveal">Die App</span>
-    <h2 class="section-title reveal">Dein Energie-Dashboard</h2>
-    <p class="section-sub reveal">
-      Alles auf einen Blick — Echtzeit-Markt, deine Ersparnisse und automatische Trades.
-    </p>
+    <div class="mockup-wrapper reveal">
+      <!-- Browser chrome -->
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="browser-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="browser-url">app.kiez-power.de/dashboard</div>
+          <div class="browser-actions"></div>
+        </div>
 
-    <AppMockupBrowser />
-  </div>
+        <!-- App content -->
+        <div class="app-content">
+
+          <!-- Sidebar -->
+          <aside class="app-sidebar">
+            <div class="sidebar-logo">⚡ KP</div>
+            <nav class="sidebar-nav">
+              <a class="nav-item active" aria-label="Dashboard">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+              </a>
+              <a class="nav-item" aria-label="Marktplatz">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+              </a>
+              <a class="nav-item" aria-label="Wallet">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M16 12h2"/></svg>
+              </a>
+              <a class="nav-item" aria-label="Profil">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+              </a>
+            </nav>
+          </aside>
+
+          <!-- Main dashboard -->
+          <main class="app-main">
+
+            <!-- Top bar -->
+            <div class="app-topbar">
+              <div>
+                <div class="app-greeting">Guten Morgen, Christian ☀️</div>
+                <div class="app-sub">Deine PV-Anlage läuft · Dierhagen, 18347</div>
+              </div>
+              <div class="live-badge">
+                <span class="live-dot"></span>
+                Live
+              </div>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="kpi-grid">
+              <div class="kpi-card savings">
+                <div class="kpi-label">💰 Lokaler Strom gehandelt</div>
+                <div class="kpi-value green">60 kWh</div>
+                <div class="kpi-hint">diesen Monat · Kiez-Matches</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-label">🌿 CO₂ gespart</div>
+                <div class="kpi-value">7,3 kg</div>
+                <div class="kpi-hint">diesen Monat</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-label">⚡ Verfügbare Energie</div>
+                <div class="kpi-value">342 kWh</div>
+                <div class="kpi-hint">8 offene Angebote</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-label">🏘️ Community spart</div>
+                <div class="kpi-value">1.240 €</div>
+                <div class="kpi-hint">gesamt diesen Monat</div>
+              </div>
+            </div>
+
+            <!-- Bottom row: chart + live market -->
+            <div class="bottom-row">
+
+              <!-- Energy chart -->
+              <div class="chart-card">
+                <div class="chart-header">
+                  <span class="chart-title">Erzeugung &amp; Verbrauch</span>
+                  <div class="chart-tabs">
+                    <button class="chart-tab active">24h</button>
+                    <button class="chart-tab">7d</button>
+                  </div>
+                </div>
+                <svg class="energy-chart" viewBox="0 0 300 80" preserveAspectRatio="none">
+                  <!-- Generation area (green) -->
+                  <defs>
+                    <linearGradient id="genGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#22C55E" stop-opacity="0.4"/>
+                      <stop offset="100%" stop-color="#22C55E" stop-opacity="0.02"/>
+                    </linearGradient>
+                    <linearGradient id="conGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.35"/>
+                      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.02"/>
+                    </linearGradient>
+                  </defs>
+                  <!-- Generation -->
+                  <path d="M0,75 C20,72 30,60 50,30 C70,5 80,3 100,5 C120,7 130,8 150,12 C170,16 180,50 200,60 C220,68 250,70 300,72 L300,80 L0,80Z"
+                        fill="url(#genGrad)"/>
+                  <path d="M0,75 C20,72 30,60 50,30 C70,5 80,3 100,5 C120,7 130,8 150,12 C170,16 180,50 200,60 C220,68 250,70 300,72"
+                        fill="none" stroke="#22C55E" stroke-width="1.5"/>
+                  <!-- Consumption -->
+                  <path d="M0,65 C20,63 40,58 70,52 C100,46 120,44 150,45 C180,46 210,50 240,52 C260,54 280,55 300,56 L300,80 L0,80Z"
+                        fill="url(#conGrad)"/>
+                  <path d="M0,65 C20,63 40,58 70,52 C100,46 120,44 150,45 C180,46 210,50 240,52 C260,54 280,55 300,56"
+                        fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="4 2"/>
+                </svg>
+                <div class="chart-legend">
+                  <span class="legend-item green">Erzeugung</span>
+                  <span class="legend-item blue">Verbrauch</span>
+                </div>
+              </div>
+
+              <!-- Live market -->
+              <div class="market-card">
+                <div class="market-header">
+                  <span class="market-title">Energiemarkt</span>
+                  <span class="market-live">
+                    <span class="live-dot small"></span>
+                    Live
+                  </span>
+                </div>
+                <div class="market-stats">
+                  <div class="market-stat">
+                    <div class="market-stat-value">8</div>
+                    <div class="market-stat-label">Offene Angebote</div>
+                  </div>
+                  <div class="market-stat">
+                    <div class="market-stat-value">342 <span>kWh</span></div>
+                    <div class="market-stat-label">Verfügbare Energie</div>
+                  </div>
+                </div>
+                <div class="market-event">
+                  <span class="event-ping"></span>
+                  Energie erfolgreich gehandelt
+                </div>
+                <div class="market-transactions">
+                  <div class="tx-row">
+                    <span class="tx-type sell">↑</span>
+                    <span class="tx-id">TX-4821</span>
+                    <span class="tx-amount">12,4 kWh</span>
+                    <span class="tx-status done">✓</span>
+                  </div>
+                  <div class="tx-row">
+                    <span class="tx-type buy">↓</span>
+                    <span class="tx-id">TX-4819</span>
+                    <span class="tx-amount">8,1 kWh</span>
+                    <span class="tx-status done">✓</span>
+                  </div>
+                  <div class="tx-row">
+                    <span class="tx-type sell">↑</span>
+                    <span class="tx-id">TX-4815</span>
+                    <span class="tx-amount">5,7 kWh</span>
+                    <span class="tx-status pending">⏳</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </main>
+        </div>
+      </div>
+
+      <!-- Glow decoration -->
+      <div class="mockup-glow" aria-hidden="true"></div>
+    </div>
 </section>
 
 <style>
