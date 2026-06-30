@@ -1,5 +1,6 @@
-[functions]
-enabled = true
+# For detailed configuration reference documentation, visit:
+# https://supabase.com/docs/guides/local-development/cli/config
+project_id = "xctbktqwpzbnsynofqtu"
 
 [functions.send-welcome-email]
 enabled = true

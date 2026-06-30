@@ -1,5 +1,8 @@
--- Migration: Add double opt-in columns to waitlist table
+-- Migration: Add double opt-in columns + referrer to waitlist table
 -- Run this in Supabase SQL Editor
+
+-- Add referrer column (used for referral tracking)
+alter table waitlist add column if not exists referrer text;
 
 -- Add confirmation columns
 alter table waitlist add column if not exists confirmed boolean default false;
