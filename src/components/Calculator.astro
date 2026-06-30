@@ -120,6 +120,7 @@
     const kwh     = Number(slider.value);
     const rates   = RATES[role];
     const labels  = LABELS[role];
+    if (!rates || !labels) return;
 
     const baseline  = kwh * rates.market;
     const kiez      = kwh * rates.kiezpower;
