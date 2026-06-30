@@ -8,7 +8,8 @@ import { withSupabase } from "@supabase/server";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
@@ -22,7 +23,9 @@ export default withSupabase(
     try {
       const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
       const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
-      const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+      const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get(
+        "SUPABASE_SERVICE_ROLE_KEY",
+      );
 
       if (!RESEND_API_KEY) {
         throw new Error("RESEND_API_KEY not configured");
@@ -40,11 +43,12 @@ export default withSupabase(
         ? `Dein Netzbetreiber vor Ort: <strong>${operator}</strong>.`
         : "";
 
-      const roleText = {
-        Konsument: "als Stromverbraucher günstigere Tarife nutzen",
-        Produzent: "deinen selbst erzeugten Solarstrom mit Nachbarn teilen",
-        Beides: "sowohl Strom beziehen als auch deine PV-Überschüsse teilen",
-      }[role] || "teilnehmen";
+      const roleText =
+        {
+          Konsument: "als Stromverbraucher günstigere Tarife nutzen",
+          Produzent: "deinen selbst erzeugten Solarstrom mit Nachbarn teilen",
+          Beides: "sowohl Strom beziehen als auch deine PV-Überschüsse teilen",
+        }[role] || "teilnehmen";
 
       const confirmUrl = `https://kiez-power.de/confirm?token=${confirmation_token}`;
 
@@ -118,6 +122,7 @@ KiezPower · Lokale Energiegemeinschaften nach §42c EnWG
         body: JSON.stringify({
           from: "KiezPower <warteliste@kiezpower.de>",
           to: [email],
+          bcc: ["info@kiez-power.de"],
           subject: `Du bist auf der KiezPower-Warteliste für ${plz} 🎉`,
           html,
           text,
@@ -153,7 +158,7 @@ KiezPower · Lokale Energiegemeinschaften nach §42c EnWG
         status: 500,
       });
     }
-  }
+  },
 );
 
 /* To invoke locally:

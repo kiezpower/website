@@ -1,34 +1,36 @@
 /* ── KiezPower Global Styles ── */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap");
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 :root {
-  --night:       #0A1628;
-  --night-mid:   #0F2040;
-  --night-light: #162B4F;
-  --green:       #22C55E;
-  --green-dim:   #16A34A;
-  --green-glow:  rgba(34, 197, 94, 0.18);
-  --amber:       #F59E0B;
-  --amber-dim:   rgba(245, 158, 11, 0.15);
-  --white:       #F8FAFC;
-  --muted:       #94A3B8;
-  --border:      rgba(148, 163, 184, 0.12);
+  --night: #0a1628;
+  --night-mid: #0f2040;
+  --night-light: #162b4f;
+  --green: #22c55e;
+  --green-dim: #16a34a;
+  --green-glow: rgba(34, 197, 94, 0.18);
+  --amber: #f59e0b;
+  --amber-dim: rgba(245, 158, 11, 0.15);
+  --white: #f8fafc;
+  --muted: #94a3b8;
+  --border: rgba(148, 163, 184, 0.12);
 
-  --font-display: 'Space Grotesk', sans-serif;
-  --font-body:    'Inter', sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
 
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
 
   /* Custom easing curves — stronger than browser defaults */
-  --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
@@ -89,7 +91,10 @@ body {
   text-decoration: none;
   border: none;
   cursor: pointer;
-  transition: background 200ms ease-out, transform 160ms ease-out, box-shadow 200ms ease-out;
+  transition:
+    background 200ms ease-out,
+    transform 160ms ease-out,
+    box-shadow 200ms ease-out;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -120,7 +125,11 @@ body {
   font-size: 0.95rem;
   text-decoration: none;
   cursor: pointer;
-  transition: border-color 200ms ease-out, background 200ms ease-out, color 200ms ease-out, transform 160ms ease-out;
+  transition:
+    border-color 200ms ease-out,
+    background 200ms ease-out,
+    color 200ms ease-out,
+    transform 160ms ease-out;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -139,7 +148,9 @@ body {
 .reveal {
   opacity: 0;
   transform: translateY(12px);
-  transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out);
+  transition:
+    opacity 400ms var(--ease-out),
+    transform 400ms var(--ease-out);
 }
 
 .reveal.visible {

@@ -97,9 +97,9 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               const all = Array.from(document.querySelectorAll('.reveal'));
-              const idx = all.indexOf(entry.target as HTMLElement);
+              const idx = all.indexOf(entry.target);
               setTimeout(() => {
-                (entry.target as HTMLElement).classList.add('visible');
+                (entry.target).classList.add('visible');
               }, 80 * (idx % 4));
               observer.unobserve(entry.target);
             }
