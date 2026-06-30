@@ -333,6 +333,10 @@ const sunIcon   = svg('<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.
   const errEmail   = document.getElementById('err-email');
   const errPlz     = document.getElementById('err-plz');
 
+  // Capture referral code from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const referrer = urlParams.get('ref') || null;
+
   function validateEmail(v) {
     if (!v) return 'E-Mail ist erforderlich.';
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return 'Bitte gültige E-Mail eingeben.';
@@ -415,9 +419,12 @@ const sunIcon   = svg('<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.
 
     const operator = await getOperatorByPlz(plz);
 
+    // Generate confirmation token for double opt-in
+    const confirmationToken = crypto.randomUUID();
+
     const { error } = await supabase
       .from('waitlist')
-      .insert({ email, plz, role, operator });
+      .insert({ email, plz, role, operator, confirmation_token: confirmationToken, referrer });
 
     if (error) {
       log('error', 'Waitlist insert failed', { code: error.code, message: error.message, plz, role });

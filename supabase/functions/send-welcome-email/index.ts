@@ -27,7 +27,7 @@ serve(async (req) => {
       throw new Error('Invalid payload: email and plz required');
     }
 
-    const { email, plz, role, operator } = record;
+    const { email, plz, role, operator, confirmation_token } = record;
 
     const operatorLine = operator
       ? `Dein Netzbetreiber vor Ort: <strong>${operator}</strong>.`
@@ -38,6 +38,8 @@ serve(async (req) => {
       Produzent: 'deinen selbst erzeugten Solarstrom mit Nachbarn teilen',
       Beides: 'sowohl Strom beziehen als auch deine PV-Überschüsse teilen',
     }[role] || 'teilnehmen';
+
+    const confirmUrl = `https://kiez-power.de/confirm?token=${confirmation_token}`;
 
     const html = `
       <!DOCTYPE html>
@@ -52,16 +54,24 @@ serve(async (req) => {
             <p style="color: #93c5fd; margin: 8px 0 0; font-size: 16px;">Deine Energie. Dein Kiez.</p>
           </div>
           <div style="background: #ffffff; padding: 40px 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px;">
-            <h2 style="color: #111827; margin-top: 0; font-size: 22px;">Du bist auf der Warteliste! 🎉</h2>
+            <h2 style="color: #111827; margin-top: 0; font-size: 22px;">Bestätige deine Anmeldung 🎉</h2>
             <p style="font-size: 16px; color: #4b5563;">Danke, dass du dich für KiezPower in <strong>${plz}</strong> eingetragen hast.</p>
             <p style="font-size: 16px; color: #4b5563;">${operatorLine}</p>
-            <p style="font-size: 16px; color: #4b5563;">Du möchtest ${roleText}. Wir melden uns per E-Mail, sobald KiezPower in deinem Kiez startet.</p>
+            <p style="font-size: 16px; color: #4b5563;">Du möchtest ${roleText}. Um deine Anmeldung abzuschließen, klicke bitte auf den folgenden Button:</p>
+            
+            <div style="text-align: center; margin: 32px 0;">
+              <a href="${confirmUrl}" style="display: inline-block; background: #16a34a; color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px;">Anmeldung bestätigen →</a>
+            </div>
+            
+            <p style="font-size: 14px; color: #6b7280;">Oder kopiere diesen Link in deinen Browser:</p>
+            <p style="font-size: 12px; color: #2563eb; word-break: break-all;">${confirmUrl}</p>
+            
             <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 20px; margin: 24px 0;">
               <p style="margin: 0; font-size: 14px; color: #166534;"><strong>Was passiert als Nächstes?</strong></p>
               <ul style="margin: 12px 0 0; padding-left: 20px; font-size: 14px; color: #166534;">
-                <li>Wir prüfen die Nachfrage in deiner PLZ</li>
+                <li>Nach Bestätigung zählen wir dich in deiner PLZ</li>
+                <li>Wir prüfen die Nachfrage in deiner Region</li>
                 <li>Bei kritischer Masse kontaktieren wir den Netzbetreiber</li>
-                <li>Du erhältst eine Einladung zur Community-Gründung</li>
               </ul>
             </div>
             <p style="font-size: 14px; color: #9ca3af; margin-top: 32px;">Kein Spam. Nur eine E-Mail, wenn es losgeht. Abmeldung jederzeit möglich.</p>
@@ -73,16 +83,18 @@ serve(async (req) => {
     `;
 
     const text = `
-Du bist auf der Warteliste! 🎉
+Bestätige deine Anmeldung 🎉
 
 Danke, dass du dich für KiezPower in ${plz} eingetragen hast.
 ${operator ? `Dein Netzbetreiber vor Ort: ${operator}.` : ''}
-Du möchtest ${roleText}. Wir melden uns per E-Mail, sobald KiezPower in deinem Kiez startet.
+Du möchtest ${roleText}. Um deine Anmeldung abzuschließen, klicke bitte auf den folgenden Link:
+
+${confirmUrl}
 
 Was passiert als Nächstes?
-- Wir prüfen die Nachfrage in deiner PLZ
+- Nach Bestätigung zählen wir dich in deiner PLZ
+- Wir prüfen die Nachfrage in deiner Region
 - Bei kritischer Masse kontaktieren wir den Netzbetreiber
-- Du erhältst eine Einladung zur Community-Gründung
 
 Kein Spam. Nur eine E-Mail, wenn es losgeht. Abmeldung jederzeit möglich.
 

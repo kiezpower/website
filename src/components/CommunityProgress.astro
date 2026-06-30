@@ -1,0 +1,157 @@
+---
+// CommunityProgress.astro - Shows per-PLZ lead count
+// Fetches confirmed lead count client-side with localStorage caching
+
+interface Props {
+  plz: string;
+}
+
+const { plz } = Astro.props;
+---
+
+<div class="community-progress" id="community-progress" data-plz={plz}>
+  <div class="progress-content" id="progress-content" hidden>
+    <div class="progress-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+      </svg>
+    </div>
+    <div class="progress-text">
+      <span class="progress-count" id="progress-count">–</span>
+      <span class="progress-label">Haushalte in PLZ {plz} sind schon dabei</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .community-progress {
+    background: var(--night-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .progress-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .progress-content[hidden] {
+    display: none;
+  }
+
+  .progress-icon {
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .progress-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .progress-count {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--green);
+  }
+
+  .progress-label {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+</style>
+
+<script>
+  const CACHE_KEY = 'kiezpower_plz_counts';
+  const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes
+
+  async function fetchPlzCount(plz: string): Promise<number | null> {
+    // Check localStorage cache first
+    try {
+      const cache = JSON.parse(localStorage.getItem(CACHE_KEY) || '{}');
+      const cached = cache[plz];
+      if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+        return cached.count;
+      }
+    } catch {}
+
+    // Fetch from Supabase
+    const SUPABASE_URL = import.meta.env.PUBLIC_SUPABASE_URL;
+    const SUPABASE_ANON_KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) return null;
+
+    try {
+      const response = await fetch(
+        `${SUPABASE_URL}/rest/v1/waitlist?plz=eq.${plz}&confirmed=eq.true&select=count`,
+        {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Prefer': 'count=exact'
+          }
+        }
+      );
+
+      if (!response.ok) return null;
+
+      // Supabase returns count in Content-Range header or as array length
+      const contentRange = response.headers.get('Content-Range');
+      if (contentRange) {
+        const match = contentRange.match(/\/(\d+)$/);
+        if (match) {
+          const count = parseInt(match[1], 10);
+          // Update cache
+          try {
+            const cache = JSON.parse(localStorage.getItem(CACHE_KEY) || '{}');
+            cache[plz] = { count, timestamp: Date.now() };
+            localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+          } catch {}
+          return count;
+        }
+      }
+
+      // Fallback: count array length
+      const data = await response.json();
+      const count = Array.isArray(data) ? data.length : 0;
+
+      // Update cache
+      try {
+        const cache = JSON.parse(localStorage.getItem(CACHE_KEY) || '{}');
+        cache[plz] = { count, timestamp: Date.now() };
+        localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+      } catch {}
+
+      return count;
+    } catch {
+      return null;
+    }
+  }
+
+  async function updateProgress() {
+    const el = document.getElementById('community-progress');
+    if (!el) return;
+
+    const plz = el.dataset.plz;
+    if (!plz) return;
+
+    const count = await fetchPlzCount(plz);
+
+    if (count !== null) {
+      const countEl = document.getElementById('progress-count');
+      const contentEl = document.getElementById('progress-content');
+      if (countEl) countEl.textContent = count.toString();
+      if (contentEl) contentEl.hidden = false;
+    }
+  }
+
+  updateProgress();
+</script>
