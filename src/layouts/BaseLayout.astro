@@ -90,7 +90,7 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
   <body>
     <slot />
 
-    <script>
+    <script is:inline>
       const reveals  = document.querySelectorAll('.reveal');
       const observer = new IntersectionObserver(
         (entries) => {
@@ -109,5 +109,6 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
       );
       reveals.forEach((el) => observer.observe(el));
     </script>
+
   </body>
 </html>

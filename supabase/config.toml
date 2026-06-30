@@ -1,0 +1,7 @@
+[functions]
+enabled = true
+
+[functions.send-welcome-email]
+enabled = true
+verify_jwt = false
+import_map = false

@@ -574,6 +574,8 @@ const compliance = [
       .insert({ company, email, message: message || null });
 
     if (error) {
+      console.warn('[netzbetreiber] Demo request failed', { company, code: error.code, message: error.message });
+      try { if (window.Sentry) window.Sentry.captureException(new Error('Netzbetreiber demo request failed'), { extra: { company, code: error.code } }); } catch (_) {}
       formError.textContent = 'Ein Fehler ist aufgetreten. Bitte versuche es später noch einmal.';
       formError.hidden = false;
       submitBtn.disabled = false;
@@ -581,6 +583,7 @@ const compliance = [
       return;
     }
 
+    console.info('[netzbetreiber] Demo request submitted', { company });
     form.hidden = true;
     successEl.hidden = false;
   });

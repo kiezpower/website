@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(node --version)",
+      "Bash(echo 'Current: __CMDSUB_OUTPUT__')",
+      "Bash(which node *)",
+      "Read(//Users/christianroessler/.nvm/versions/node/**)",
+      "Bash(true)",
+      "Bash(~/.nvm/versions/node/v26.1.0/bin/node ~/.nvm/versions/node/v26.1.0/bin/npm run build)",
+      "mcp__plugin_context-mode_context-mode__ctx_stats"
+    ]
+  }
+}

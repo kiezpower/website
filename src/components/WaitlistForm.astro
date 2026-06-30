@@ -359,6 +359,39 @@ const sunIcon   = svg('<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.
     plzInput.classList.toggle('error', !!err);
   });
 
+  function log(level, message, data) {
+    const entry = {
+      timestamp: new Date().toISOString(),
+      level,
+      message,
+      source: 'WaitlistForm',
+      ...data,
+    };
+    const method = level === 'error' ? 'console.error' : level === 'warn' ? 'console.warn' : 'console.info';
+    console[method](`[${entry.timestamp}] [${level.toUpperCase()}]`, message, data ?? '');
+    try {
+      if (typeof window.Sentry !== 'undefined' && window.Sentry !== undefined) {
+        if (level === 'error') {
+          const err = data?.error ? new Error(data.error.message || message) : new Error(message);
+          window.Sentry.captureException(err, { extra: { source: 'WaitlistForm', data } });
+        } else {
+          window.Sentry.addBreadcrumb({ category: 'waitlist', message, level, data });
+        }
+      }
+    } catch (_) {}
+  }
+
+  async function getOperatorByPlz(plz) {
+    try {
+      const res = await fetch(`/data/plz_to_operator.json`);
+      if (!res.ok) return null;
+      const data = await res.json();
+      return data[plz]?.name ?? null;
+    } catch {
+      return null;
+    }
+  }
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -378,11 +411,16 @@ const sunIcon   = svg('<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.
     submitBtn.textContent = 'Wird gespeichert …';
     formError.hidden = true;
 
+    log('info', 'Waitlist form submitted', { plz, role });
+
+    const operator = await getOperatorByPlz(plz);
+
     const { error } = await supabase
       .from('waitlist')
-      .insert({ email, plz, role });
+      .insert({ email, plz, role, operator });
 
     if (error) {
+      log('error', 'Waitlist insert failed', { code: error.code, message: error.message, plz, role });
       formError.textContent = error.code === '23505'
         ? 'Diese E-Mail ist bereits auf der Warteliste.'
         : 'Ein Fehler ist aufgetreten. Bitte versuche es später noch einmal.';
@@ -392,7 +430,11 @@ const sunIcon   = svg('<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.
       return;
     }
 
+    log('info', 'Waitlist signup successful', { plz, role, operator });
     form.hidden = true;
+    if (operator) {
+      successEl.querySelector('p').textContent = `Wir melden uns, sobald KiezPower in deiner PLZ (Netzbetreiber: ${operator}) startet.`;
+    }
     successEl.hidden = false;
   });
 </script>

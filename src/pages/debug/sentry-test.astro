@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Sentry Test — KiezPower Debug">
+  <main style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:2rem;padding:2rem;text-align:center;">
+    <h1 style="font-family:var(--font-display);font-size:2rem;">Sentry Error Tracking Test</h1>
+    <p style="color:var(--muted);max-width:500px;line-height:1.6;">
+      Click the button below to throw a test error. If Sentry is configured, this error
+      should appear in your Sentry dashboard within 60 seconds.
+    </p>
+
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+      <button id="btn-error" class="test-btn" style="background:var(--green);color:var(--night);border:none;border-radius:8px;padding:0.8rem 1.5rem;font-weight:700;cursor:pointer;">
+        🧪 Test-Error auslösen
+      </button>
+      <button id="btn-log" class="test-btn" style="background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:8px;padding:0.8rem 1.5rem;font-weight:600;cursor:pointer;">
+        📝 Log-Test-Nachricht
+      </button>
+    </div>
+
+    <div id="result" style="display:none;padding:1rem 2rem;border-radius:8px;border:1px solid var(--border);background:var(--night-mid);max-width:500px;word-break:break-all;"></div>
+  </main>
+</BaseLayout>
+
+<script>
+  const btnError = document.getElementById('btn-error');
+  const btnLog = document.getElementById('btn-log');
+  const result = document.getElementById('result');
+
+  function showResult(type, msg) {
+    result.style.display = 'block';
+    result.style.borderColor = type === 'error' ? '#ef4444' : type === 'success' ? 'var(--green)' : 'var(--border)';
+    result.textContent = msg;
+  }
+
+  btnError.addEventListener('click', () => {
+    showResult('error', '🧪 Test-Error wird gesendet...');
+    try {
+      throw new Error('[KIEZPOWER TEST] This is a deliberately thrown test error from sentry-test.kiez-power.de');
+    } catch (e) {
+      console.error('[SentryTest] Deliberate error:', e);
+      if (typeof window.Sentry !== 'undefined' && window.Sentry !== undefined) {
+        window.Sentry.captureException(e);
+        showResult('success', '✅ Error captured by Sentry and sent to your dashboard.');
+      } else {
+        showResult('error', '⚠️ Sentry is not initialized on this page (SENTRY_DSN not configured).\nThe error was logged to console only.');
+      }
+    }
+  });
+
+  btnLog.addEventListener('click', () => {
+    showResult('info', '📝 Logging test breadcrumb...');
+    try {
+      if (typeof window.Sentry !== 'undefined' && window.Sentry !== undefined) {
+        window.Sentry.addBreadcrumb({ category: 'debug', message: 'Manual test breadcrumb from sentry-test page', level: 'info' });
+        window.Sentry.captureMessage('Test info message from sentry-test page', 'info');
+        showResult('success', '✅ Test message sent to Sentry.');
+      } else {
+        showResult('error', '⚠️ Sentry is not initialized. Logged to console only.');
+      }
+      console.info('[SentryTest] Manual log test at', new Date().toISOString());
+    } catch (e) {
+      showResult('error', '❌ Error sending to Sentry: ' + e.message);
+    }
+  });
+</script>
+
+<style>
+  .test-btn {
+    transition: transform 160ms ease-out, box-shadow 200ms ease-out;
+  }
+  .test-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 24px rgba(34, 197, 94, 0.25);
+  }
+  .test-btn:active {
+    transform: scale(0.97);
+  }
+</style>

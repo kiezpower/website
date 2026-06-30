@@ -310,12 +310,15 @@ const slas = [
       .insert({ company, email, message: [usecase, message].filter(Boolean).join(' | ') || null });
 
     if (error) {
+      console.warn('[partner] Demo request failed', { company, code: error.code, message: error.message });
+      try { if (window.Sentry) window.Sentry.captureException(new Error('Demo request failed'), { extra: { company, code: error.code, message: error.message } }); } catch (_) {}
       btn.disabled    = false;
       btn.textContent = 'Demo anfragen →';
       alert('Etwas ist schiefgelaufen. Bitte schreiben Sie uns direkt an info@kiez-power.de');
       return;
     }
 
+    console.info('[partner] Demo request submitted', { company, usecase });
     form.hidden    = true;
     success.hidden = false;
   });
