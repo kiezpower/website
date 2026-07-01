@@ -385,6 +385,48 @@ const sunIcon   = svg('<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.
     } catch (_) {}
   }
 
+  // GA4 Event Tracking Helper
+  function trackGA4Event(eventName, params = {}) {
+    if (typeof gtag === 'function') {
+      gtag('event', eventName, params);
+    }
+  }
+
+  // Track waitlist_view when section enters viewport
+  const waitlistSection = document.getElementById('warteliste');
+  if (waitlistSection) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Extract source_plz from URL path
+            const pathParts = window.location.pathname.split('/');
+            const sourcePlz = pathParts[1] === 'stromsharing' && pathParts[2] ? pathParts[2] : null;
+            
+            trackGA4Event('waitlist_view', {
+              source_plz: sourcePlz
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(waitlistSection);
+  }
+
+  // Track form_start on first focus on email or PLZ inputs
+  let formStartTracked = false;
+  const trackFormStart = () => {
+    if (!formStartTracked) {
+      formStartTracked = true;
+      trackGA4Event('waitlist_form_start');
+    }
+  };
+  
+  emailInput.addEventListener('focus', trackFormStart);
+  plzInput.addEventListener('focus', trackFormStart);
+
   async function getOperatorByPlz(plz) {
     try {
       const res = await fetch(`/data/plz_to_operator.json`);
@@ -416,6 +458,9 @@ const sunIcon   = svg('<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.
     formError.hidden = true;
 
     log('info', 'Waitlist form submitted', { plz, role });
+    
+    // Track form submit event
+    trackGA4Event('waitlist_form_submit', { plz, role });
 
     const operator = await getOperatorByPlz(plz);
 
@@ -428,6 +473,10 @@ const sunIcon   = svg('<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.
 
     if (error) {
       log('error', 'Waitlist insert failed', { code: error.code, message: error.message, plz, role });
+      
+      // Track form error event
+      trackGA4Event('waitlist_form_error', { error_code: error.code });
+      
       formError.textContent = error.code === '23505'
         ? 'Diese E-Mail ist bereits auf der Warteliste.'
         : 'Ein Fehler ist aufgetreten. Bitte versuche es später noch einmal.';
@@ -438,6 +487,10 @@ const sunIcon   = svg('<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.
     }
 
     log('info', 'Waitlist signup successful', { plz, role, operator });
+    
+    // Track form success event
+    trackGA4Event('waitlist_form_success', { plz, role, has_operator: !!operator });
+    
     form.hidden = true;
     if (operator) {
       successEl.querySelector('p').textContent = `Wir melden uns, sobald KiezPower in deiner PLZ (Netzbetreiber: ${operator}) startet.`;
