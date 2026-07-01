@@ -56,6 +56,8 @@ const sunIcon   = svg('<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.
           <span>Jetzt Platz sichern</span>
         </div>
 
+        <p class="waitlist-count" id="waitlist-count" hidden></p>
+
         <form id="waitlist-form" novalidate>
           <div class="field">
             <label for="wl-email">E-Mail-Adresse</label>
@@ -200,6 +202,14 @@ const sunIcon   = svg('<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.
     0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
   }
 
+  .waitlist-count {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin: -1rem 0 1.4rem;
+  }
+  .waitlist-count strong { color: var(--green); }
+  .waitlist-count[hidden] { display: none; }
+
   .field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.2rem; }
 
   .field label {
@@ -332,6 +342,18 @@ const sunIcon   = svg('<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.
   const plzInput   = document.getElementById('wl-plz');
   const errEmail   = document.getElementById('err-email');
   const errPlz     = document.getElementById('err-plz');
+  const countEl    = document.getElementById('waitlist-count');
+
+  function renderWaitlistCount(count) {
+    if (!count || count <= 0) return;
+    countEl.innerHTML = `<strong>${count}</strong> ${count === 1 ? 'Person ist' : 'Personen sind'} bereits auf der Warteliste`;
+    countEl.hidden = false;
+  }
+
+  supabase.rpc('get_waitlist_count').then(({ data, error }) => {
+    if (error) return;
+    renderWaitlistCount(data);
+  });
 
   // Capture referral code from URL
   const urlParams = new URLSearchParams(window.location.search);
@@ -491,6 +513,13 @@ const sunIcon   = svg('<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.
     // Track form success event
     trackGA4Event('waitlist_form_success', { plz, role, has_operator: !!operator });
     
+    if (!countEl.hidden) {
+      const current = parseInt(countEl.querySelector('strong')?.textContent ?? '0', 10);
+      renderWaitlistCount(current + 1);
+    } else {
+      renderWaitlistCount(1);
+    }
+
     form.hidden = true;
     if (operator) {
       successEl.querySelector('p').textContent = `Wir melden uns, sobald KiezPower in deiner PLZ (Netzbetreiber: ${operator}) startet.`;
