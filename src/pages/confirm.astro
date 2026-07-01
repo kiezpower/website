@@ -168,45 +168,47 @@ const description = 'Bestätige deine Anmeldung für die KiezPower-Warteliste.';
   const errorEl   = document.getElementById('error-state');
   const errorMsg  = document.getElementById('error-message');
 
+  if (!loadingEl || !successEl || !errorEl || !errorMsg) {
+    throw new Error('Confirm page elements not found.');
+  }
+
   async function confirmEntry() {
     const params = new URLSearchParams(window.location.search);
     const token  = params.get('token');
 
     if (!token) {
-      showError('Kein Bestigungstoken gefunden.');
+      loadingEl.hidden = true;
+      errorMsg.textContent = 'Kein Bestätigungstoken gefunden.';
+      errorEl.hidden = false;
       return;
     }
 
     try {
       const { data, error } = await supabase
-        .from('waitlist')
-        .update({ confirmed: true })
-        .eq('confirmation_token', token)
-        .eq('confirmed', false)
-        .select('id');
+        .rpc('confirm_waitlist_entry', { token });
 
       if (error) {
         console.error('Confirmation error:', error);
-        showError('Ein Fehler ist aufgetreten. Bitte versuche es später noch einmal.');
+        loadingEl.hidden = true;
+        errorMsg.textContent = 'Ein Fehler ist aufgetreten. Bitte versuche es später noch einmal.';
+        errorEl.hidden = false;
         return;
       }
 
-      if (data && data.length > 0) {
+      if (data === true) {
         loadingEl.hidden = true;
         successEl.hidden = false;
       } else {
-        showError('Der Bestätigungslink ist ungültig oder wurde bereits verwendet.');
+        loadingEl.hidden = true;
+        errorMsg.textContent = 'Der Bestätigungslink ist ungültig oder wurde bereits verwendet.';
+        errorEl.hidden = false;
       }
     } catch (err) {
       console.error('Confirmation failed:', err);
-      showError('Ein Fehler ist aufgetreten. Bitte versuche es später noch einmal.');
+      loadingEl.hidden = true;
+      errorMsg.textContent = 'Ein Fehler ist aufgetreten. Bitte versuche es später noch einmal.';
+      errorEl.hidden = false;
     }
-  }
-
-  function showError(message) {
-    loadingEl.hidden = true;
-    errorMsg.textContent = message;
-    errorEl.hidden = false;
   }
 
   // Run confirmation on page load
