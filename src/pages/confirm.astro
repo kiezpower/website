@@ -178,8 +178,12 @@ const description = 'Bestätige deine Anmeldung für die KiezPower-Warteliste.';
     }
 
     try {
-      // Call the Supabase function to confirm the entry
-      const { data, error } = await supabase.rpc('confirm_waitlist_entry', { token });
+      const { data, error } = await supabase
+        .from('waitlist')
+        .update({ confirmed: true })
+        .eq('confirmation_token', token)
+        .eq('confirmed', false)
+        .select('id');
 
       if (error) {
         console.error('Confirmation error:', error);
@@ -187,7 +191,7 @@ const description = 'Bestätige deine Anmeldung für die KiezPower-Warteliste.';
         return;
       }
 
-      if (data === true) {
+      if (data && data.length > 0) {
         loadingEl.hidden = true;
         successEl.hidden = false;
       } else {
