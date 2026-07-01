@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import CookieConsent from '../components/CookieConsent.astro';
 
 interface Props {
   title?:                  string;
@@ -85,6 +86,39 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
 
+    <!-- ── GA4 with Consent Mode v2 ── -->
+    <script is:inline define:vars={{ ga4Id: import.meta.env.PUBLIC_GA4_MEASUREMENT_ID }}>
+      // Initialize Consent Mode v2 - default to denied until user accepts
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      
+      // Set default consent state (GDPR/DSGVO compliance)
+      gtag('consent', 'default', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied',
+        'wait_for_update': 500
+      });
+      
+      // Function to update consent when user accepts cookies
+      window.updateCookieConsent = function(granted) {
+        gtag('consent', 'update', {
+          'analytics_storage': granted ? 'granted' : 'denied',
+          'ad_storage': granted ? 'granted' : 'denied'
+        });
+      };
+      
+      // Load GA4 tag
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga4Id;
+      document.head.appendChild(script);
+      
+      gtag('js', new Date());
+      gtag('config', ga4Id, {
+        cookie_flags: 'SameSite=None;Secure'
+      });
+    </script>
+
     <slot name="head" />
   </head>
   <body>
@@ -109,6 +143,8 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
       );
       reveals.forEach((el) => observer.observe(el));
     </script>
+
+    <CookieConsent />
 
   </body>
 </html>
